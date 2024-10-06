@@ -62,15 +62,16 @@ import Logo from "../ui/Logo.astro";
           >
         </li>
         <li id="has-sub-nav" class="main-nav-item">
-          <div
+          <button
             class="sub-nav-head"
             aria-haspopup="true"
             aria-expanded="false"
             tabindex="0"
+            aria-haspopup="true"
           >
             <span>Informações</span>
             <ChevronIcon class="chevron-icon" />
-          </div>
+          </button>
 
           <ul class="sub-nav-list" aria-expanded="false">
             <li class="sub-nav-item">
@@ -228,6 +229,11 @@ import Logo from "../ui/Logo.astro";
   }
 
   .sub-nav-head {
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1;
     justify-content: space-between;
     transition: padding 220ms linear;
   }
