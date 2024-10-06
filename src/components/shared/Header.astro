@@ -1,0 +1,644 @@
+---
+import WhatsappIcon from "../ui/WhatsappIcon.astro";
+import ChevronIcon from "../ui/ChevronIcon.astro";
+import ListIcon from "../ui/ListIcon.astro";
+import InfoIcon from "../ui/InfoIcon.astro";
+import StarIcon from "../ui/StarIcon.astro";
+import Logo from "../ui/Logo.astro";
+---
+
+<header class="header full-width">
+  <div class="wrapper content-max-width flex-aligned">
+    <a
+      href="#main-content"
+      class="button skip-to-main"
+      aria-label="Ir para conteúdo principal">Pular Navegação</a
+    >
+    <a href="#top" class="logo" aria-label="Logo da S.E.G.">
+      <Logo />
+    </a>
+
+    <button
+      class="nav-toggler"
+      aria-controls="primary-nav"
+      aria-expanded="false"
+      aria-label="Menu de navegação"
+    >
+      <svg
+        stroke="currentColor"
+        aria-hidden="true"
+        width="1.75em"
+        height="1.75em"
+        viewBox="0 0 100 100"
+      >
+        <line
+          class="line top"
+          x1="90"
+          x2="10"
+          y1="40"
+          y2="40"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-dasharray="80"
+          stroke-dashoffset="0"></line>
+        <line
+          class="line bottom"
+          x1="10"
+          x2="90"
+          y1="60"
+          y2="60"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-dasharray="80"
+          stroke-dashoffset="0"></line>
+      </svg>
+    </button>
+
+    <nav id="primary-nav" class="nav">
+      <ul class="main-nav-list">
+        <li class="main-nav-item">
+          <a href="#top" class="main-nav-link" aria-label="Voltar ao início"
+            >Início</a
+          >
+        </li>
+        <li id="has-sub-nav" class="main-nav-item">
+          <div
+            class="sub-nav-head"
+            aria-haspopup="true"
+            aria-expanded="false"
+            tabindex="0"
+          >
+            <span>Informações</span>
+            <ChevronIcon class="chevron-icon" />
+          </div>
+
+          <ul class="sub-nav-list" aria-expanded="false">
+            <li class="sub-nav-item">
+              <a
+                href="#sobre"
+                class="sub-nav-link"
+                aria-label="Conheça sobre a S.E.G."
+              >
+                <div>
+                  <InfoIcon />
+                  <span>Sobre</span>
+                </div>
+                <p>Conheça nossa empresa</p>
+              </a>
+            </li>
+
+            <li class="sub-nav-item">
+              <a
+                href="#servicos"
+                class="sub-nav-link"
+                aria-label="Serviços e benefícios"
+              >
+                <div>
+                  <ListIcon />
+                  <span>Serviços</span>
+                </div>
+                <p>Nossos serviços e benefícios</p>
+              </a>
+            </li>
+
+            <li class="sub-nav-item">
+              <a
+                href="#avaliacoes"
+                class="sub-nav-link"
+                aria-label="Avaliações dos clientes"
+              >
+                <div>
+                  <StarIcon />
+                  <span>Avaliações</span>
+                </div>
+                <p>Como somos avaliados</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="main-nav-item">
+          <a
+            href="#orcamento"
+            class="main-nav-link"
+            aria-label="Solicitar um orçamento">Orçamento</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="contact-group">
+      <span>67 98401 2222</span>
+
+      <span>|</span>
+
+      <a
+        href="https://wa.me/5567984012222"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="button"
+        aria-label="Contato pelo WhatsApp"
+      >
+        <span>Fale Conosco</span>
+        <WhatsappIcon />
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .skip-to-main,
+  .contact-group {
+    display: none;
+  }
+
+  .sub-nav-head,
+  .sub-nav-item,
+  .sub-nav-link div {
+    display: flex;
+    align-items: center;
+  }
+
+  .header {
+    position: fixed;
+    min-width: 100%;
+    color: var(--clr-neutral-100);
+    background: var(--gr-header);
+    font-size: var(--fs-small);
+    transform: translateY(0);
+    transition:
+      background-color 150ms ease,
+      transform 150ms linear;
+  }
+
+  .header.active {
+    background-color: var(--clr-neutral-900);
+  }
+
+  .header.hidden {
+    transform: translateY(-100%);
+    transition-delay: 300ms;
+  }
+
+  .wrapper {
+    position: relative;
+    justify-content: space-between;
+    padding-block: 1rem;
+  }
+
+  .nav {
+    position: absolute;
+    visibility: hidden;
+    padding-inline: 1.5rem;
+    transform: translateX(150%);
+  }
+
+  [aria-expanded="true"] + .nav {
+    inset: 0;
+    height: 100dvh;
+    width: min(350px, 75%);
+    z-index: 1;
+    margin-left: auto;
+    border-radius: 4px 0 0 4px;
+    border-left: 1px solid #3f3f3f;
+    background-color: var(--clr-neutral-900);
+    box-shadow: 0 0 0 100vmax #00000080;
+
+    visibility: visible;
+    transform: translateX(var(--sm-padding));
+    transition: transform var(--transition-medium);
+  }
+
+  [aria-expanded="true"] + .nav .main-nav-list {
+    display: grid;
+    margin-top: 20vh;
+  }
+
+  .main-nav-item {
+    padding-block: 1rem;
+  }
+
+  .main-nav-item:not(:last-child) {
+    border-bottom: 1px solid #3f3f3f;
+  }
+
+  .main-nav-link:hover,
+  .main-nav-link:active,
+  .main-nav-link:focus-visible {
+    color: var(--clr-primary-100);
+  }
+
+  .sub-nav-head {
+    justify-content: space-between;
+    transition: padding 220ms linear;
+  }
+
+  .sub-nav-head:has(+ .sub-nav-list[aria-expanded="true"]) {
+    padding-bottom: 1rem;
+  }
+
+  .chevron-icon,
+  .chevron-icon.active {
+    transition: var(--transition-quick);
+  }
+
+  .chevron-icon.active {
+    transform: rotate(180deg);
+  }
+
+  .sub-nav-list {
+    display: grid;
+    overflow: hidden;
+    transition: height var(--transition-medium);
+  }
+
+  .sub-nav-link {
+    display: grid;
+    padding-inline: 1rem 0;
+  }
+
+  .sub-nav-link:hover,
+  .sub-nav-link:active,
+  .sub-nav-link:focus-visible {
+    color: var(--clr-neutral-100);
+  }
+
+  .sub-nav-link div {
+    gap: 0.25rem;
+    font-weight: var(--fw-medium);
+  }
+
+  .sub-nav-link p {
+    font-size: var(--fs-extra-small);
+    opacity: 0.8;
+  }
+
+  @media (max-width: 1023px) {
+    .nav-toggler {
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      padding: 0.5rem;
+      right: -8px;
+      z-index: 5;
+    }
+
+    .nav-toggler[aria-expanded="true"] :is(.top, .bottom) {
+      animation: to-close-icon 750ms forwards;
+    }
+
+    .nav-toggler[aria-expanded="false"] :is(.top, .bottom) {
+      animation: to-open-icon 750ms forwards;
+    }
+
+    .nav-toggler .line.top {
+      --rotation: -45deg;
+      transform-origin: 65px 45px;
+    }
+
+    .nav-toggler .line.bottom {
+      --rotation: 45deg;
+      transform-origin: 60px 55px;
+    }
+
+    @keyframes to-close-icon {
+      0% {
+        stroke-dashoffset: 0;
+      }
+
+      40% {
+        stroke-dashoffset: 79.9;
+      }
+
+      60% {
+        stroke-dashoffset: 79.9;
+        rotate: calc(var(--rotation));
+      }
+
+      100% {
+        stroke-dashoffset: 0;
+        rotate: var(--rotation);
+      }
+    }
+
+    @keyframes to-open-icon {
+      0% {
+        stroke-dashoffset: 0;
+        rotate: var(--rotation);
+      }
+
+      40% {
+        stroke-dashoffset: 79.9;
+        rotate: var(--rotation);
+      }
+
+      60% {
+        stroke-dashoffset: 79.9;
+      }
+
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .sub-nav-list[aria-expanded="false"] {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      transition:
+        height 220ms ease-in-out,
+        visibility 0s 220ms,
+        opacity 220ms linear;
+    }
+
+    .sub-nav-list[aria-expanded="true"] {
+      visibility: visible;
+      opacity: 1;
+      height: 180px;
+      transition:
+        height 220ms ease-in-out,
+        opacity 220ms linear,
+        visibility 0s;
+    }
+  }
+
+  @media (min-width: 450px) {
+    .header {
+      color: var(--clr-primary-900);
+      background: var(--clr-neutral-100);
+    }
+
+    .header.active {
+      color: var(--clr-neutral-100);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .nav-toggler {
+      display: none;
+    }
+
+    .skip-to-main {
+      display: inline;
+    }
+
+    .main-nav-list,
+    .contact-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .skip-to-main {
+      position: absolute;
+      opacity: 0;
+      translate: -100%;
+      transform: scale(0);
+      transition: var(--transition-quick);
+    }
+
+    .skip-to-main:hover,
+    .skip-to-main:focus-visible {
+      opacity: 1;
+      translate: 0;
+      transform: scale(1);
+      transition: var(--transition-quick);
+    }
+
+    .nav {
+      position: initial;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    #has-sub-nav:hover .chevron-icon,
+    #has-sub-nav:focus-visible .chevron-icon {
+      transform: rotate(180deg);
+      transition: transform var(--transition-quick);
+    }
+
+    .main-nav-list {
+      gap: 3rem;
+    }
+
+    .main-nav-item:not(:last-child) {
+      border-bottom: none;
+    }
+
+    .sub-nav-head {
+      cursor: default;
+      position: relative;
+      gap: 0.25rem;
+    }
+
+    .sub-nav-list {
+      background-color: var(--clr-neutral-100);
+      border-radius: 8px;
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      position: absolute;
+      min-width: max-content;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-5px);
+      transition:
+        opacity 300ms ease,
+        transform 300ms ease,
+        visibility 300ms;
+    }
+
+    .header.active .sub-nav-list {
+      background-color: var(--clr-neutral-900);
+      border-color: #303030;
+    }
+
+    .sub-nav-link:hover,
+    .sub-nav-link:active,
+    .sub-nav-link:focus-visible {
+      background: var(--clr-primary-100);
+      border-radius: 4px;
+    }
+
+    .main-nav-item:nth-child(2):hover .sub-nav-list,
+    .main-nav-item:nth-child(2):focus-within .sub-nav-list {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .sub-nav-link {
+      width: 100%;
+      padding: 0.75rem 2rem;
+    }
+
+    .contact-group {
+      gap: 1rem;
+    }
+
+    .contact-group a {
+      gap: 0.5rem;
+      padding: 1em 1.5em;
+    }
+  }
+</style>
+
+<script>
+  // Type definitions
+  type ElementOrWindow = Element | Window;
+  type EventMap = HTMLElementEventMap & WindowEventMap;
+
+  // Utility functions
+  const getElement = <T extends Element>(selector: string): T | null =>
+    document.querySelector<T>(selector);
+
+  const getElements = <T extends Element>(selector: string): NodeListOf<T> =>
+    document.querySelectorAll<T>(selector);
+
+  const addEventOnElements = <K extends keyof EventMap>(
+    elements: ElementOrWindow[],
+    eventType: K,
+    callback: (event: EventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void => {
+    elements.forEach((element) =>
+      element.addEventListener(eventType, callback as EventListener, options)
+    );
+  };
+
+  // DOM manipulation functions
+  const toggleClass = (
+    element: Element | null,
+    className: string,
+    force?: boolean
+  ): void => {
+    element?.classList.toggle(className, force);
+  };
+
+  const setAttribute = (
+    element: Element | null,
+    attr: string,
+    value: string
+  ): void => {
+    element?.setAttribute(attr, value);
+  };
+
+  // Scroll reveal functionality
+  const handleRevealOnScroll = (): void => {
+    const revealElements = getElements<HTMLElement>("[data-reveal]");
+    const revealThreshold = window.innerHeight / 1.15;
+
+    revealElements.forEach((element) => {
+      const isRevealed = element.getBoundingClientRect().top < revealThreshold;
+      toggleClass(element, "revealed", isRevealed);
+    });
+  };
+
+  // Header functionality
+  let lastScrollPos = 0;
+
+  const handleHeaderVisibility = (): void => {
+    const header = getElement<HTMLElement>(".header");
+    const ctaContactBtn = getElement<HTMLElement>("#cta-contact-btn");
+
+    if (!header) return;
+
+    const isScrollingDown = lastScrollPos < window.scrollY;
+    const isScrollPastThreshold = window.scrollY >= 20;
+    const isContactPastThreshold = window.scrollY >= 900;
+
+    toggleClass(header, "active", isScrollPastThreshold);
+
+    setTimeout(() => {
+      toggleClass(header, "hidden", isScrollingDown && isScrollPastThreshold);
+      toggleClass(ctaContactBtn, "active", isContactPastThreshold);
+    }, 10);
+
+    lastScrollPos = window.scrollY;
+  };
+
+  // Navigation functionality
+  const toggleNav = (isOpen: boolean): void => {
+    const header = getElement<HTMLElement>(".header");
+    const navToggle = getElement<HTMLElement>('[aria-controls="primary-nav"]');
+    const isScrollPastThreshold = window.scrollY >= 60;
+    const subNavList = getElement<HTMLElement>(".sub-nav-list");
+    const dropdownIcon = getElement<HTMLElement>(".chevron-icon");
+
+    if (!header || !navToggle) return;
+
+    if (!isScrollPastThreshold) {
+      toggleClass(header, "active", isOpen);
+    }
+
+    setAttribute(navToggle, "aria-expanded", isOpen.toString());
+    toggleClass(document.documentElement, "scroll-locked", isOpen);
+
+    if (!isOpen && subNavList && dropdownIcon) {
+      setAttribute(subNavList, "aria-expanded", "false");
+      setAttribute(subNavList, "aria-hidden", "true");
+      toggleClass(dropdownIcon, "active", false);
+    }
+  };
+
+  const closeNav = (): void => toggleNav(false);
+
+  // Sub-nav functionality
+  const setupSubNav = (): void => {
+    const dropdown = getElement<HTMLElement>("#has-sub-nav");
+    const submenu = getElement<HTMLElement>(".sub-nav-list");
+    const dropdownIcon = getElement<HTMLElement>(".chevron-icon");
+
+    let closeSubmenuTimeout: number | null = null;
+
+    const toggleSubmenu = (isExpanded: boolean): void => {
+      setAttribute(submenu, "aria-expanded", (!isExpanded).toString());
+      setAttribute(submenu, "aria-hidden", isExpanded.toString());
+      toggleClass(dropdownIcon, "active", !isExpanded);
+    };
+
+    const handleDropdownClick = (e: Event): void => {
+      if (window.innerWidth <= 1024) {
+        const target = e.target as HTMLElement;
+        const isSubNavHead = target.closest(".sub-nav-head");
+
+        if (isSubNavHead) {
+          e.preventDefault();
+          const isExpanded = submenu?.getAttribute("aria-expanded") === "true";
+          toggleSubmenu(isExpanded);
+        } else if (target.closest(".sub-nav-link")) {
+          if (closeSubmenuTimeout) {
+            clearTimeout(closeSubmenuTimeout);
+          }
+          closeSubmenuTimeout = window.setTimeout(
+            () => toggleSubmenu(true),
+            300
+          );
+        }
+      }
+    };
+
+    dropdown?.addEventListener("click", handleDropdownClick);
+  };
+
+  // Initialization
+  const initializeApp = (): void => {
+    const navToggle = getElement<HTMLElement>('[aria-controls="primary-nav"]');
+    const navLinks = getElements<HTMLElement>(".main-nav-link");
+    const subnavLinks = getElements<HTMLElement>(".sub-nav-link");
+
+    navToggle?.addEventListener("click", () => {
+      const isNavClosed = navToggle.getAttribute("aria-expanded") === "false";
+      toggleNav(isNavClosed);
+    });
+
+    addEventOnElements([...navLinks, ...subnavLinks], "click", closeNav);
+    addEventOnElements([window], "scroll", handleHeaderVisibility);
+    addEventOnElements([window], "scroll", handleRevealOnScroll);
+    addEventOnElements([window], "load", handleRevealOnScroll);
+
+    handleHeaderVisibility();
+
+    setupSubNav();
+  };
+
+  // Run initialization when DOM is ready
+  document.addEventListener("DOMContentLoaded", initializeApp);
+</script>

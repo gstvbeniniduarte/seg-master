@@ -1,0 +1,169 @@
+---
+import Testimonial from "./TestimonialHandler.astro";
+import { testimonialsData } from "../../constants";
+---
+
+<section id="avaliacoes" class="full-width">
+  <div class="section-wrapper content-max-width">
+    <div class="heading-wrapper">
+      <h2 data-reveal="left" class="section-heading">
+        <span>Menos</span> papelada <br />
+        <span>Mais</span> quilômetros rodados
+      </h2>
+      <p class="section-sub-heading" data-reveal="right">
+        Confira as histórias de quem deixou a dor de cabeça para trás e seguiu
+        viagem com tranquilidade
+      </p>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="cards-wrapper">
+        {
+          testimonialsData.map((testimonial) => (
+            <Testimonial testimonial={testimonial} />
+          ))
+        }
+      </div>
+
+      <div class="bullet-points">
+        {
+          testimonialsData.map((testimonial) => (
+            <span class="bullet" data-index={testimonial.id} />
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cardsWrapper = document.querySelector(
+    ".cards-wrapper"
+  ) as HTMLElement | null;
+  const bullets = document.querySelectorAll(".bullet");
+
+  if (cardsWrapper) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+            const index = Array.from(cardsWrapper.children).indexOf(
+              entry.target
+            );
+            updateActiveBullet(index);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    Array.from(cardsWrapper.children).forEach((child) => {
+      if (child instanceof HTMLElement) {
+        observer.observe(child);
+      }
+    });
+  }
+
+  function updateActiveBullet(index: number) {
+    bullets.forEach((bullet, i) => {
+      if (bullet instanceof HTMLElement) {
+        bullet.classList.toggle("active", i === index);
+      }
+    });
+  }
+</script>
+
+<style>
+  section {
+    background-color: var(--clr-primary-900);
+    padding-block: var(--pd-section);
+  }
+
+  .section-wrapper {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .heading-wrapper {
+    display: grid;
+    gap: 1.25rem;
+    color: var(--clr-neutral-100);
+    text-align: center;
+  }
+
+  .section-heading span:first-child {
+    position: relative;
+  }
+
+  .section-heading span:first-child::before {
+    content: "";
+    position: absolute;
+    height: 1em;
+    width: 81px;
+    bottom: -12px;
+    left: -4px;
+    background-image: url("/images/scribble-illust.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .content-wrapper {
+    display: grid;
+  }
+
+  .cards-wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 36px 0 1.25rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+  }
+
+  .cards-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .bullet-points {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .bullet {
+    width: 10px;
+    height: 10px;
+    border-radius: var(--radius-circle);
+    background-color: var(--clr-neutral-100);
+    cursor: pointer;
+    transition: background-color 300ms ease;
+  }
+
+  .bullet.active {
+    background-color: var(--clr-primary-100);
+  }
+
+  @media (min-width: 540px) {
+    .bullet-points {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cards-wrapper {
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cards-wrapper {
+      display: flex;
+    }
+  }
+</style>

@@ -1,0 +1,237 @@
+---
+import PlusIcon from "../ui/PlusIcon.astro";
+
+interface AccordionItem {
+  id: number;
+  name: string;
+  description: string;
+  link?: string;
+}
+
+interface Props {
+  item: AccordionItem;
+  isFirstItem: boolean;
+  hasLink?: boolean;
+}
+
+const { item, isFirstItem, hasLink = true } = Astro.props;
+---
+
+<div class="accordion-item">
+  <div class="content">
+    <button
+      class="head"
+      aria-controls={`accordion-description-${item.id}`}
+      data-accordion-id={item.id}
+      aria-expanded={isFirstItem ? "true" : "false"}
+      aria-haspopup="true"
+    >
+      <h3>{item.name}</h3>
+      <i class="icon-wrapper" aria-hidden="true">
+        <PlusIcon />
+      </i>
+    </button>
+    <div
+      id={`accordion-description-${item.id}`}
+      class={`description ${isFirstItem ? "expanded" : ""}`}
+      style={isFirstItem ? "height: auto;" : "height: 0;"}
+    >
+      <div class="description-content">
+        <p>
+          {
+            item.description.split("\n").map((line) => (
+              <Fragment>
+                {line}
+                <br />
+              </Fragment>
+            ))
+          }
+        </p>
+        {
+          hasLink && item.link && (
+            <a
+              class="link"
+              href={item.link}
+              aria-label="Ir para a página deste serviço"
+            >
+              {" "}
+              Mais informações{" "}
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .content {
+    background: var(--clr-primary-400);
+    border-radius: 4px;
+  }
+
+  .head,
+  .head .icon-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .head {
+    justify-content: space-between;
+    border: none;
+    border-bottom: 1px solid var(--clr-primary-900);
+    background-color: transparent;
+    padding: 1.25rem 1.5rem;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .head h3 {
+    font-size: var(--fs-regular);
+    font-weight: 550;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .head .icon-wrapper {
+    flex-shrink: 0;
+  }
+
+  .head svg {
+    transition: opacity var(--transition-quick);
+  }
+
+  .head[aria-expanded="true"] svg {
+    opacity: 0;
+  }
+
+  .description {
+    overflow: hidden;
+    transition: height 220ms ease-in-out;
+  }
+
+  .description-content {
+    padding: 1.5rem;
+  }
+
+  .description:not(.expanded) .description-content {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      visibility 0s 220ms,
+      opacity 220ms linear;
+  }
+
+  .expanded {
+    visibility: visible;
+    opacity: 1;
+    transition:
+      visibility 0s,
+      opacity 220ms linear,
+      height 220ms ease-in-out;
+  }
+
+  .description p {
+    font-size: var(--fs-regular);
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+
+  .link {
+    font-size: 14px;
+    display: inline-block;
+    color: var(--clr-primary-100);
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  type AccordionButton = HTMLElement & { dataset: { accordionId: string } };
+
+  class AccordionManager {
+    private buttons: NodeListOf<AccordionButton>;
+    private expandedAccordionId: number = -1;
+
+    constructor(container: HTMLElement) {
+      this.buttons = container.querySelectorAll(
+        ".head"
+      ) as NodeListOf<AccordionButton>;
+
+      if (this.buttons.length > 0) {
+        this.expandedAccordionId = parseInt(
+          this.buttons[0].dataset.accordionId,
+          10
+        );
+        this.init();
+      }
+    }
+
+    private init(): void {
+      this.addEventListeners();
+      this.setInitialHeight();
+    }
+
+    private addEventListeners(): void {
+      this.buttons.forEach((button) => {
+        button.addEventListener("click", this.handleButtonClick.bind(this));
+      });
+    }
+
+    private handleButtonClick(event: Event): void {
+      const button = event.currentTarget as AccordionButton;
+      const accordionId = parseInt(button.dataset.accordionId, 10);
+
+      if (this.expandedAccordionId !== accordionId) {
+        this.toggleAccordions(this.expandedAccordionId, accordionId);
+        this.expandedAccordionId = accordionId;
+      }
+    }
+
+    private toggleAccordions(collapseId: number, expandId: number): void {
+      const collapseDesc = document.getElementById(
+        `accordion-description-${collapseId}`
+      );
+      const expandDesc = document.getElementById(
+        `accordion-description-${expandId}`
+      );
+      const collapseButton = document.querySelector(
+        `[data-accordion-id="${collapseId}"]`
+      );
+      const expandButton = document.querySelector(
+        `[data-accordion-id="${expandId}"]`
+      );
+
+      if (collapseDesc && expandDesc && collapseButton && expandButton) {
+        collapseDesc.style.height = `${collapseDesc.scrollHeight}px`;
+        collapseDesc.offsetHeight;
+
+        requestAnimationFrame(() => {
+          collapseDesc.style.height = "0";
+          collapseDesc.classList.remove("expanded");
+          collapseButton.setAttribute("aria-expanded", "false");
+
+          expandDesc.style.height = `${expandDesc.scrollHeight}px`;
+          expandDesc.classList.add("expanded");
+          expandButton.setAttribute("aria-expanded", "true");
+        });
+      }
+    }
+
+    private setInitialHeight(): void {
+      const firstDescription = document.querySelector(
+        ".description.expanded"
+      ) as HTMLElement;
+      if (firstDescription) {
+        firstDescription.style.height = `${firstDescription.scrollHeight}px`;
+      }
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document
+      .querySelectorAll(".faq-wrapper, .services-wrapper")
+      .forEach((container) => {
+        new AccordionManager(container as HTMLElement);
+      });
+  });
+</script>

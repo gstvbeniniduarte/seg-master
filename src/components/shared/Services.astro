@@ -1,0 +1,192 @@
+---
+import { benefitsData, servicesData } from "../../constants";
+import Accordion from "./AccordionHandler.astro";
+---
+
+<section id="servicos" class="section">
+  <div class="heading-wrapper">
+    <h2 data-reveal="left">
+      <span class="span-reference-1">Foque</span> na estrada<br />
+      Deixe o restante com a gente!
+    </h2>
+    <p data-reveal="right">
+      Confira abaixo a lista de serviços e benefícios que só a SEG tem para te
+      oferecer
+    </p>
+  </div>
+  <div class="services-wrapper">
+    {
+      servicesData.map((service, index) => (
+        <Accordion item={service} isFirstItem={index === 0} hasLink />
+      ))
+    }
+  </div>
+  <div class="benefits-wrapper">
+    <h2 data-reveal="right">
+      Por quê escolher <br class="break-line" />os serviços da <span
+        class="span-reference-2">SEG?</span
+      >
+    </h2>
+    <ol class="benefits-list">
+      {
+        benefitsData.map((benefit, index) => (
+          <li class="benefit-item" data-reveal="left">
+            <span class="benefit-number">
+              {String(index + 1).padStart(2, "0")}.
+            </span>
+            <div class="benefit-content">
+              <div>
+                <span class="benefit-span">{benefit.title}:</span>
+                <p class="benefit-description">{benefit.description}</p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .section,
+  .heading-wrapper,
+  .services-wrapper,
+  .benefits-list {
+    display: grid;
+  }
+
+  .section {
+    gap: 3rem;
+    grid-template-columns: repeat(2, 1fr);
+
+    padding-block: var(--pd-section);
+  }
+
+  .heading-wrapper {
+    gap: 1.25rem;
+    grid-column: span 2;
+    text-align: center;
+  }
+
+  .break-line {
+    display: none;
+  }
+
+  .span-reference-1 {
+    position: relative;
+  }
+
+  .span-reference-1::before,
+  .span-reference-2::before {
+    content: "";
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  .span-reference-1::before {
+    height: 1.75em;
+    width: 5.2em;
+
+    top: -7px;
+    left: -33px;
+
+    background-image: url("/images/circle-word-accent.svg");
+    background-position: center;
+    transform: rotateZ(4deg);
+  }
+
+  .services-wrapper {
+    gap: 0.5rem;
+  }
+
+  .benefits-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .span-reference-2 {
+    position: relative;
+  }
+
+  .span-reference-2::before {
+    background-image: url("/images/arrow-accent.svg");
+
+    right: -55px;
+    transform: translateY(10%);
+    height: 60px;
+    width: 46px;
+  }
+
+  .benefits-list {
+    gap: 1.25rem;
+    list-style-type: none;
+  }
+
+  .benefit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    line-height: 1.6;
+  }
+
+  .benefit-number,
+  .benefit-span {
+    color: var(--clr-accent-400);
+  }
+
+  .benefit-number {
+    flex-shrink: 0;
+    text-align: right;
+    font-weight: var(--semi-bold);
+  }
+
+  .benefit-span {
+    font-weight: var(--semi-bold);
+    margin-right: 3px;
+  }
+
+  .benefit-description {
+    opacity: 0.75;
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    .section {
+      gap: 2.5rem;
+    }
+
+    .benefits-wrapper {
+      gap: 2.5rem;
+    }
+
+    .benefits-wrapper h2 {
+      padding-top: 1.5rem;
+    }
+
+    .break-line {
+      display: initial;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .section {
+      grid-template-columns: 1fr;
+    }
+
+    .heading-wrapper {
+      grid-column: span 1;
+    }
+
+    .benefits-wrapper > h2 {
+      text-align: center;
+    }
+
+    .benefit-content {
+      display: inline-flex;
+      line-height: 1.6;
+    }
+  }
+</style>

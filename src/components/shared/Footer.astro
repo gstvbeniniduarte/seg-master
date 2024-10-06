@@ -1,0 +1,148 @@
+---
+import Logo from "../ui/Logo.astro";
+---
+
+<footer class="full-width">
+  <div class="wrapper content-max-width">
+    <div class="upper-footer">
+      <div class="footer-logo">
+        <Logo />
+        <p>
+          Há mais de duas décadas atendendo com excelência e oferecendo serviços
+          ANTT, licenças AET, proteção e seguro veicular com atendimento ágil e
+          confiável
+        </p>
+      </div>
+      <ul class="footer-list">
+        <span>Navegação</span>
+        <li><a href="#top">Início</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#avaliacoes">Avaliações</a></li>
+      </ul>
+      <ul class="footer-list">
+        <span>Institucional</span>
+        <li>Quem Somos</li>
+        <li>Termos de uso</li>
+        <li>Política de cookies</li>
+      </ul>
+      <ul class="footer-list">
+        <span>Redes</span>
+        <li>
+          <a
+            href="https://www.instagram.com/seg.transporte?igsh=MTBzdjlkZHA4YzhhcQ=="
+            rel="noopener noreferrer"
+            target="_blank">Instagram</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.facebook.com/profile.php?id=61564734879298&mibextid=LQQJ4d"
+            rel="noopener noreferrer"
+            target="_blank">Facebook</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="lower-footer">
+      <p>Copyright © 2024 SEG</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    color: var(--clr-neutral-100);
+    background-color: var(--clr-neutral-900);
+    border-radius: 1rem 1rem 0 0;
+    font-size: clamp(0.75rem, 0.662rem + 0.3756vw, 1rem);
+  }
+
+  .upper-footer {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    padding-block: 3rem;
+  }
+
+  .lower-footer {
+    border-top: 1px solid #a6a6a8;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    opacity: 0.85;
+  }
+
+  .footer-logo {
+    display: grid;
+    gap: 1.25rem;
+    grid-column: span 3;
+
+    max-width: 40ch;
+  }
+
+  .footer-logo p {
+    opacity: 0.85;
+  }
+
+  .footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .footer-list span {
+    color: var(--clr-accent-100);
+    font-weight: 550;
+  }
+
+  .footer-list li {
+    opacity: 0.85;
+  }
+
+  @media (max-width: 1090px) {
+    .upper-footer {
+      grid-template-columns: repeat(11, 1fr);
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      grid-column: span 5;
+    }
+
+    .footer-list {
+      grid-column: span 2;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .upper-footer {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      grid-column: span 3;
+    }
+
+    .footer-list {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .upper-footer {
+      gap: 2.5rem;
+    }
+  }
+
+  @media (max-width: 550px) {
+    .upper-footer {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .footer-logo {
+      grid-column: span 1;
+    }
+  }
+</style>

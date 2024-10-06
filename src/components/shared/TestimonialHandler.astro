@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+import QuoteIcon from "../ui/QuoteIcon.astro";
+import StarFilledIcon from "../ui/StarFilledIcon.astro";
+
+interface TestimonialType {
+  id: number;
+  avatarSrc: string;
+  quote: string;
+  authorName: string;
+  authorOccupation: string;
+  rating: number;
+}
+
+const { testimonial } = Astro.props as { testimonial: TestimonialType };
+const { avatarSrc, quote, authorName, authorOccupation, rating } = testimonial;
+---
+
+<div class="card">
+  <div class="avatar-wrapper">
+    <Image
+      src={avatarSrc}
+      alt={`${authorName}'s avatar`}
+      class="avatar"
+      width="85"
+      height="85"
+      format="webp"
+      widths={[85]}
+    />
+  </div>
+
+  <QuoteIcon class="quotation-mark" />
+
+  <blockquote>{quote}</blockquote>
+
+  <div class="bottom-wrapper">
+    <div class="author">
+      <span class="author-name">{authorName}</span>
+      <span class="author-occupation">{authorOccupation}</span>
+    </div>
+    <div class="rating-wrapper">
+      {[...Array(rating)].map((_, i) => <StarFilledIcon key={i} />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .card {
+    display: grid;
+    gap: 2rem;
+    position: relative;
+
+    padding: 1rem 1.5rem 1.5rem;
+    border-radius: 4px;
+    color: var(--clr-neutral-100);
+    background: var(--clr-primary-400);
+    border-top: 0.5rem solid var(--clr-accent-400);
+    width: min(40ch, 86vw);
+
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    max-width: 40ch;
+  }
+
+  .card:nth-child(2) {
+    border-color: var(--clr-accent-100);
+  }
+
+  .avatar-wrapper {
+    position: absolute;
+    overflow: visible;
+    inset: 0;
+  }
+
+  .avatar {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    aspect-ratio: 1/1;
+    border: 6px solid var(--clr-primary-900);
+    border-radius: var(--radius-circle);
+    overflow: hidden;
+  }
+
+  .quotation-mark {
+    color: var(--clr-neutral-100);
+    margin-right: auto;
+    opacity: 0.1;
+  }
+
+  blockquote {
+    font-style: italic;
+  }
+
+  .bottom-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .author {
+    display: grid;
+  }
+
+  .author-name {
+    font-size: var(--fs-extra-small);
+    font-weight: var(--fw-bold);
+  }
+
+  .author-occupation {
+    font-size: var(--fs-extra-small);
+    opacity: 0.85;
+  }
+
+  .rating-wrapper {
+    color: var(--clr-accent-400);
+  }
+
+  @media (min-width: 960px) {
+    .card {
+      width: min(30vw, 360px);
+    }
+  }
+</style>

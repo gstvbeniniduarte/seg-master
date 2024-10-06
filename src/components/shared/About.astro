@@ -1,0 +1,98 @@
+---
+import { Image } from "astro:assets";
+import Banner from "../../images/gato-bolado.avif";
+---
+
+<section id="sobre" class="full-width">
+  <div class="section-wrapper content-max-width">
+    <Image
+      src={Banner}
+      width={327}
+      height={327}
+      widths={[327]}
+      alt="Gato bolado!"
+      format={"webp"}
+    />
+    <div class="content-wrapper">
+      <div class="section-head">
+        <div class="section-sub-heading" data-reveal="left">SOBRE A SEG</div>
+        <h2 class="section-heading" data-reveal="left">
+          Nosso compromisso<br />é com sua <span>tranquilidade</span>
+        </h2>
+      </div>
+      <div class="section-text">
+        <p class="section-paragraph" data-reveal="left">
+          Com mais de duas décadas de experiência, nossa empresa se destaca pela
+          dedicação em fornecer um serviço de excelência, sempre priorizando um
+          atendimento ágil e horários flexíveis.
+        </p>
+        <p class="section-paragraph" data-reveal="left">
+          Ao longo dos anos, a confiança dos nossos clientes, a ponto de o nosso
+          crescimento ser impulsionado, em grande parte, pela indicação de
+          pessoa para pessoa.
+        </p>
+        <p class="section-paragraph" data-reveal="left">
+          Esse reconhecimento é o reflexo do nosso compromisso com a satisfação
+          e o sucesso de cada pessoa e empresa que atendemos.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section {
+    color: var(--clr-primary-900);
+    background-color: var(--clr-neutral-100);
+    border-radius: 1rem;
+
+    padding-bottom: var(--pd-section);
+  }
+
+  .section-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .content-wrapper {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .section-sub-heading {
+    color: var(--clr-primary-100);
+    font-size: var(--fs-extra-small);
+  }
+
+  .section-heading {
+    font-weight: 900;
+  }
+
+  .section-heading span {
+    color: var(--clr-primary-100);
+  }
+
+  .section-paragraph,
+  .section-sub-heading {
+    font-weight: 500;
+    text-wrap: pretty;
+  }
+
+  .section-text {
+    display: grid;
+    gap: 1rem;
+
+    opacity: 0.85;
+  }
+
+  @media (min-width: 768px) {
+    .section-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

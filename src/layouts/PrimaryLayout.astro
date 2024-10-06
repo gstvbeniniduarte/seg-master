@@ -1,0 +1,43 @@
+---
+import "../styles/main.css";
+
+const {
+  title = "SEG - Assessoria em Transportes",
+  description = "Há 22 anos atendendo com confiabilidade e rapidez.",
+} = Astro.props;
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+
+  <body id="top">
+    <div class="preloader">
+      <div class="circle"></div>
+      <p class="text">AGUARDE</p>
+    </div>
+
+    <slot />
+
+    <script>
+      const preloader = document.querySelector(".preloader");
+
+      window.addEventListener(
+        "load",
+        () => {
+          requestAnimationFrame(() => {
+            preloader?.classList.add("loaded");
+            document.body.classList.add("loaded");
+          });
+        },
+        { once: true }
+      );
+    </script>
+  </body>
+</html>

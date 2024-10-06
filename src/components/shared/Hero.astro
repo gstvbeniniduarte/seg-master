@@ -1,0 +1,278 @@
+---
+import { Image } from "astro:assets";
+import Banner from "../../images/hero-banner.webp";
+import GoogleIcon from "../ui/GoogleIcon.astro";
+import StarFilledIcon from "../ui/StarFilledIcon.astro";
+import TiretrackIllustration from "../ui/Tiretrack-Illustration.astro";
+import UprightIcon from "../ui/UprightIcon.astro";
+import WhatsappIcon from "../ui/WhatsappIcon.astro";
+---
+
+<section class="full-width section">
+  <Image
+    src={Banner}
+    width={800}
+    height={700}
+    alt="Banner da S.E.G."
+    class="mobile-banner"
+    widths={[500]}
+    format={"webp"}
+    loading={"eager"}
+  />
+  <div class="tire-track-accent">
+    <TiretrackIllustration />
+  </div>
+  <div class="section-wrapper content-max-width">
+    <div class="content-wrapper">
+      <div class="section-heading">
+        ANTT e seguro<br />veicular direto do<br /><span>conforto</span> de sua casa
+      </div>
+      <p class="section-text">
+        Consultoria 100% digital para serviços ANTT, licenças AET, seguro e
+        proteção veicular com entrega de documentação em até 2 horas
+      </p>
+      <div class="cta-wrapper">
+        <div class="validation">
+          <GoogleIcon />
+          <div>
+            <span>5.0</span>
+            <StarFilledIcon />
+          </div>
+          <span>( 4700+ clientes )</span>
+        </div>
+        <div class="cta-btn-wrapper">
+          <a
+            href="https://wa.me/5567984012222"
+            class="cta-main-btn button"
+            rel="noopener noreferrer"
+            target="_blank"
+            aria-label="link de contato pelo WhatsApp"
+          >
+            <span>Fale Conosco</span>
+            <WhatsappIcon />
+          </a>
+          <a
+            href="#orcamento"
+            class="cta-btn button"
+            aria-label="Ir para: Solicitar um orçamento"
+          >
+            <span>Orçamento Gratuito</span>
+            <UprightIcon />
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-banner-wrapper">
+      <Image
+        src={Banner}
+        width={800}
+        height={700}
+        alt="Banner da S.E.G."
+        class="hero-banner"
+        widths={[500, 560, 788, 980, 1110]}
+        format={"webp"}
+      />
+      <div class="gradient-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .section {
+    position: relative;
+  }
+
+  .mobile-banner {
+    border-bottom: 2px solid var(--clr-accent-100);
+  }
+
+  .section-wrapper {
+    display: grid;
+  }
+
+  .tire-track-accent {
+    position: absolute;
+    min-width: 400vw;
+
+    left: -75%;
+    bottom: -15%;
+    opacity: 0.07;
+    z-index: -1;
+    transform: rotateZ(-30deg);
+  }
+
+  .hero-banner-wrapper {
+    display: none;
+  }
+
+  .content-wrapper {
+    display: grid;
+    gap: 1rem;
+
+    padding-block: 3rem 4rem;
+  }
+
+  .section-heading {
+    font-size: var(--fs-heading-1);
+    font-weight: var(--fw-extra-bold);
+  }
+
+  .section-heading span {
+    color: var(--clr-accent-100);
+  }
+
+  .section-text {
+    opacity: 0.75;
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: -3px;
+    width: 75px;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      var(--clr-primary-900) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+  .cta-wrapper {
+    display: grid;
+  }
+
+  .cta-wrapper,
+  .cta-btn-wrapper {
+    gap: 0.75rem;
+  }
+
+  .validation,
+  .validation > *:nth-child(2) {
+    display: flex;
+    align-items: center;
+  }
+
+  .validation {
+    font-size: var(--fs-small);
+    padding-top: 1rem;
+  }
+
+  .validation span {
+    opacity: 0.75;
+  }
+
+  .validation > *:first-child {
+    font-size: 1rem;
+    padding-right: 0.5rem;
+  }
+
+  .cta-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 100%;
+  }
+
+  .cta-btn,
+  .cta-main-btn {
+    gap: 0.25rem;
+    text-transform: uppercase;
+  }
+
+  .cta-main-btn > *:nth-child(2) {
+    margin-left: 4px;
+    transform: translateY(-1px);
+  }
+
+  .cta-btn {
+    border: 1px solid var(--clr-neutral-100);
+    background-color: transparent;
+  }
+
+  .cta-btn:hover,
+  .cta-btn.active,
+  .cta-btn-:focus-visible {
+    color: var(--clr-primary-900);
+    background-color: var(--clr-neutral-100);
+  }
+
+  @media (min-width: 450px) {
+    .section-wrapper {
+      margin-top: clamp(4rem, 3.657rem + 1.2195vw, 4.4375rem);
+      padding-block: 2rem var(--pd-section);
+    }
+
+    .mobile-banner {
+      display: none;
+    }
+
+    .content-wrapper {
+      order: 1;
+      padding-block: 2rem 0;
+      max-width: 50ch;
+    }
+
+    .hero-banner-wrapper {
+      display: initial;
+      order: 0;
+    }
+
+    .gradient-overlay {
+      display: none;
+    }
+
+    .hero-banner {
+      border-radius: 4px;
+      max-height: 30svh;
+    }
+
+    .tire-track-accent {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .cta-btn-wrapper {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 800px) {
+    .hero-banner {
+      min-width: 100%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-wrapper {
+      grid-template-columns: 55% 1fr;
+
+      padding-block: var(--pd-section);
+    }
+
+    .content-wrapper {
+      order: 0;
+      padding-block: 0;
+    }
+
+    .hero-banner-wrapper {
+      position: relative;
+    }
+
+    .hero-banner {
+      min-height: 100%;
+      max-height: none;
+    }
+
+    .gradient-overlay {
+      display: initial;
+    }
+  }
+
+  @media (min-width: 1680px) {
+    .content-wrapper {
+      max-width: none;
+    }
+  }
+</style>

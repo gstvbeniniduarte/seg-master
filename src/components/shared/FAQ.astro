@@ -1,0 +1,81 @@
+---
+import { faqData } from "../../constants/index";
+import Accordion from "./AccordionHandler.astro";
+---
+
+<section class="section">
+  <div class="heading-wrapper">
+    <h2 class="section-heading" data-reveal="left">
+      Ficou com alguma <span>dúvida</span>?
+    </h2>
+    <p class="section-sub-heading" data-reveal="right">
+      Não se preocupe! Reunimos as perguntas que recebemos com mais frequência
+    </p>
+  </div>
+  <div class="faq-wrapper">
+    {
+      faqData.map((faq, index) => (
+        <div class="accordion">
+          <Accordion item={faq} isFirstItem={index === 0} hasLink={false} />
+        </div>
+      ))
+    }
+  </div>
+  <p class="obs-text" data-reveal="bottom">
+    Não encontrou o que procurava? Envie sua pergunta em nosso <a
+      href="https://wa.me/5567984012222"
+      target="_blank"
+      rel="noopener noreferrer">WhatsApp</a
+    > ou tente nosso <a href="#orcamento">Orçamento</a>, é grátis!
+  </p>
+</section>
+
+<style>
+  .section,
+  .heading-wrapper,
+  .content-wrapper {
+    display: grid;
+  }
+
+  .section {
+    gap: 2.5rem;
+
+    padding-block: var(--pd-section);
+  }
+
+  .heading-wrapper {
+    gap: 1.25rem;
+    text-align: center;
+  }
+
+  .section-heading span {
+    color: var(--clr-accent-400);
+  }
+
+  .faq-wrapper {
+    columns: 400px;
+  }
+
+  .accordion {
+    margin-inline: auto;
+  }
+
+  .accordion:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  .obs-text {
+    text-align: center;
+  }
+
+  .obs-text a {
+    color: var(--clr-primary-100);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      gap: 3rem;
+    }
+  }
+</style>

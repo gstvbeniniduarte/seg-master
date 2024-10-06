@@ -1,0 +1,764 @@
+---
+import CheckIcon from "../ui/CheckIcon.astro";
+import SendIcon from "../ui/SendIcon.astro";
+import UploadIcon from "../ui/UploadIcon.astro";
+---
+
+<section class="full-width" id="orcamento">
+  <div class="section-wrapper content-max-width">
+    <h2 class="section-heading" data-reveal="left">
+      Orçamento rápido e <span>sem compromisso!</span>
+    </h2>
+
+    <form id="budgetForm">
+      <div class="upper">
+        <p class="section-sub-heading" data-reveal="right">
+          <span>Falta pouco!</span> Receba um orçamento feito na medida para sua
+          necessidade, é só preencher alguns campos abaixo
+        </p>
+        <div class="form-group" data-type="text" data-reveal="left">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control"
+            placeholder=" "
+            required
+            minlength="3"
+          />
+          <label for="name" class="form-label">Nome / Nome da empresa</label>
+          <span class="form-message" data-error="required"
+            >Campo obrigatório</span
+          >
+          <span class="form-message" data-error="minlength"
+            >Tamanho mínimo de 3 caracteres</span
+          >
+          <span class="form-message" data-success>Nome válido</span>
+        </div>
+
+        <div class="form-group" data-type="email" data-reveal="left">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder=" "
+            required
+          />
+          <label for="email" class="form-label">Seu endereço de e-mail</label>
+          <span class="form-message" data-error="required"
+            >Campo obrigatório</span
+          >
+          <span class="form-message" data-error="email"
+            >Insira um endereço de e-mail válido</span
+          >
+          <span class="form-message" data-success>E-mail válido</span>
+        </div>
+
+        <div class="form-group" data-type="tel" data-reveal="left">
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            class="form-control"
+            placeholder=" "
+            minlength="10"
+            maxlength="15"
+          />
+          <label for="phone" class="form-label"
+            >Telefone para contato (Opcional)</label
+          >
+          <span class="form-message" data-error="format"
+            >Formato correto: (DDD) 12345-6789</span
+          >
+          <span class="form-message" data-success>Telefone válido</span>
+        </div>
+
+        <div class="form-group" data-type="textarea" data-reveal="left">
+          <textarea
+            id="message"
+            name="message"
+            class="form-control"
+            rows="4"
+            placeholder=" "
+            required
+            minlength="10"></textarea>
+          <label for="message" class="form-label"
+            >Como podemos lhe ajudar?</label
+          >
+          <span class="form-message" data-error="required"
+            >Campo obrigatório</span
+          >
+          <span class="form-message" data-error="minlength"
+            >Tamanho mínimo de 10 caracteres</span
+          >
+          <span class="form-message" data-success>Mensagem válida</span>
+        </div>
+      </div>
+      <div class="lower">
+        <div class="form-group file-upload" data-type="file" data-reveal="left">
+          <div class="file-drop-zone">
+            <input
+              type="file"
+              id="attachments"
+              name="attachments"
+              class="file-input"
+              multiple
+              accept=".pdf,.doc,.docx,.txt"
+            />
+            <div class="file-drop-content">
+              <span class="mb-drag-text">Anexar arquivos (Opcional)</span>
+              <span class="drag-text">Arraste seu anexo aqui (Opcional)</span>
+              <UploadIcon class="upload-icon" />
+              <div class="attach-btn-wrapper">
+                <span class="drag-text-2">ou clique para</span>
+                <button type="button" class="file-select-button"
+                  >Selecionar arquivos</button
+                >
+              </div>
+              <span class="file-types">Formatos: PDF, DOC, DOCX, TXT</span>
+            </div>
+          </div>
+          <div class="file-list"></div>
+          <span class="form-message" data-error="filesize"
+            >Arquivo muito grande. Limite de 1MB por arquivo.</span
+          >
+        </div>
+
+        <div class="submit-wrapper" data-reveal="bottom">
+          <button type="submit" id="submitBtn" disabled>
+            <span>ENVIAR</span>
+            <SendIcon />
+          </button>
+          <div class="disc-wrapper">
+            <div class="disc-item">
+              <CheckIcon />
+              <span>Não enviamos emails de oferta ou spam</span>
+            </div>
+            <div class="disc-item">
+              <CheckIcon />
+              <span>Não compartilhamos seus dados</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  section {
+    background-color: var(--clr-primary-900);
+  }
+
+  .section-wrapper {
+    padding-block: 4rem;
+    color: var(--clr-neutral-100);
+    border-radius: 4px;
+    box-shadow: 0 0 10px hsla(0 0% 0% / 0.1);
+  }
+
+  .section-heading {
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
+  .section-heading span {
+    font-weight: bold;
+    color: var(--clr-accent-400);
+  }
+
+  .section-sub-heading {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .section-sub-heading span {
+    font-weight: bold;
+  }
+
+  #budgetForm {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: start center;
+    flex-shrink: 0;
+  }
+
+  .upper {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.75rem 0;
+    border: none;
+    border-bottom: 2px solid #a6a6a8;
+    background-color: transparent;
+    transition: border-color var(--transition-medium);
+    color: var(--clr-neutral-100);
+  }
+
+  .form-control:focus,
+  .form-control:focus-visible {
+    outline: none;
+  }
+
+  .form-label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0;
+    color: #a6a6a8;
+    pointer-events: none;
+    transition: all var(--transition-medium);
+  }
+
+  .form-control:focus ~ .form-label,
+  .form-control:not(:placeholder-shown) ~ .form-label {
+    top: -0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .form-message {
+    display: none;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .form-message[data-error] {
+    color: var(--clr-accent-500);
+  }
+
+  .form-message[data-success] {
+    color: var(--clr-accent-100);
+  }
+
+  .submit-wrapper {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1em 2em;
+    background-color: var(--clr-primary-100);
+    color: var(--clr-neutral-100);
+    border: none;
+    border-radius: 4px;
+    font-size: var(--fs-regular);
+    cursor: pointer;
+    transition: background-color 300ms;
+  }
+
+  button[type="submit"]:hover:not(:disabled) {
+    filter: brightness(1.2);
+  }
+
+  button[type="submit"]:disabled {
+    opacity: 0.7;
+    filter: grayscale(0.9);
+    cursor: default;
+  }
+
+  .disc-wrapper {
+    display: grid;
+    place-content: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--clr-neutral-100);
+    margin-right: auto;
+  }
+
+  .disc-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .disc-item span {
+    opacity: 0.85;
+  }
+
+  .disc-item svg {
+    color: var(--clr-accent-100);
+  }
+
+  .form-group[data-state="error"] .form-control {
+    border-color: var(--clr-accent-500);
+  }
+
+  .form-group[data-state="error"] .form-label {
+    color: var(--clr-accent-500);
+  }
+
+  .form-group[data-state="success"] .form-control {
+    border-color: var(--clr-accent-100);
+  }
+
+  .form-group[data-state="success"] .form-label {
+    color: var(--clr-accent-100);
+  }
+
+  .form-group[data-state="active"] .form-control {
+    border-color: var(--clr-primary-100);
+  }
+
+  .form-group[data-state="active"] .form-label {
+    color: var(--clr-primary-100);
+  }
+
+  .file-upload {
+    margin-top: 1.5rem;
+  }
+
+  .file-drop-zone {
+    position: relative;
+    border: 2px dashed var(--clr-primary-100);
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: border-color var(--transition-medium);
+  }
+
+  .file-drop-zone.drag-over {
+    border-color: var(--clr-accent-400);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .file-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .upload-icon {
+    opacity: 0.5;
+  }
+
+  .drag-text,
+  .drag-text-2,
+  .attach-btn-wrapper span {
+    opacity: 0.75;
+  }
+
+  .drag-text,
+  .drag-text-2 {
+    display: none;
+  }
+
+  .mb-drag-text {
+    display: initial;
+    font-size: var(--fs-small);
+    opacity: 0.85;
+  }
+
+  .attach-btn-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .file-select-button {
+    width: 100%;
+    background-color: var(--clr-primary-100);
+    color: var(--clr-neutral-100);
+    border: none;
+    padding: 0.7em 1.4em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color var(--transition-medium);
+  }
+
+  .file-select-button:hover {
+    filter: brightness(1.2);
+  }
+
+  .file-types {
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .file-list {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .lower {
+    width: 100%;
+  }
+
+  @media (min-width: 540px) {
+    .submit-wrapper {
+      display: flex;
+      gap: 1rem;
+    }
+
+    button[type="submit"] {
+      justify-content: flex-start;
+    }
+
+    .disc-wrapper {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .upper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .upper > :not(:nth-child(3), :nth-child(4)) {
+      grid-column: span 2;
+    }
+
+    .section-sub-heading {
+      grid-column: span 2;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-heading {
+      margin-bottom: 1.75rem;
+    }
+
+    .section-sub-heading {
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lower {
+      width: auto;
+    }
+
+    .drag-text,
+    .drag-text-2 {
+      display: initial;
+    }
+
+    .mb-drag-text {
+      display: none;
+    }
+
+    .file-select-button {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 1110px) {
+    #budgetForm {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .section-sub-heading {
+      margin-top: 1.25rem;
+    }
+
+    .content-wrapper img {
+      max-height: none;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("budgetForm") as HTMLFormElement;
+    const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
+    const inputs = form.querySelectorAll("input, textarea");
+    const formGroups = form.querySelectorAll(".form-group");
+
+    const debounce = (fn: Function, delay: number) => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return (...args: any[]) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn(...args), delay);
+      };
+    };
+
+    const setValidationState = (formGroup: Element, state: string) => {
+      formGroup.setAttribute("data-state", state);
+      formGroup
+        .querySelectorAll(".form-message")
+        .forEach((msg) => ((msg as HTMLElement).style.display = "none"));
+      if (state !== "active") {
+        const messageElement = formGroup.querySelector(
+          `.form-message[data-${state}]`
+        ) as HTMLElement;
+        if (messageElement) messageElement.style.display = "block";
+      }
+    };
+
+    const validatePhoneInput = (input: HTMLInputElement) => {
+      const cleaned = input.value.replace(/\D/g, "");
+      const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+      return match ? true : false;
+    };
+
+    const validateInput = (input: HTMLInputElement | HTMLTextAreaElement) => {
+      const formGroup = input.closest(".form-group") as HTMLElement;
+
+      if (input.value.trim() === "") {
+        setValidationState(formGroup, input.required ? "error" : "");
+        return !input.required;
+      }
+
+      if (input.id === "phone") {
+        const isValid = validatePhoneInput(input as HTMLInputElement);
+        setValidationState(formGroup, isValid ? "success" : "error");
+        return isValid;
+      }
+
+      if (input.validity.valid) {
+        setValidationState(formGroup, "success");
+        return true;
+      } else {
+        setValidationState(formGroup, "error");
+        if (input.type === "email" && !input.validity.valueMissing) {
+          const emailErrorMsg = formGroup.querySelector(
+            '.form-message[data-error="email"]'
+          ) as HTMLElement;
+          emailErrorMsg.style.display = "block";
+
+          const requiredErrorMsg = formGroup.querySelector(
+            '.form-message[data-error="required"]'
+          );
+
+          if (requiredErrorMsg instanceof HTMLElement) {
+            requiredErrorMsg.style.display = "none";
+          }
+        } else if (
+          (input.id === "name" || input.id === "message") &&
+          input.validity.tooShort
+        ) {
+          const minlengthErrorMsg = formGroup.querySelector(
+            '.form-message[data-error="minlength"]'
+          ) as HTMLElement;
+          minlengthErrorMsg.style.display = "block";
+
+          const requiredErrorMsg = formGroup.querySelector(
+            '.form-message[data-error="required"]'
+          );
+
+          if (requiredErrorMsg instanceof HTMLElement) {
+            requiredErrorMsg.style.display = "none";
+          }
+        }
+        return false;
+      }
+    };
+
+    const fileInput = document.getElementById(
+      "attachments"
+    ) as HTMLInputElement;
+    const fileDropZone = document.querySelector(
+      ".file-drop-zone"
+    ) as HTMLElement;
+    const fileList = document.querySelector(".file-list") as HTMLElement;
+    const fileSelectButton = document.querySelector(
+      ".file-select-button"
+    ) as HTMLButtonElement;
+
+    const MAX_FILE_SIZE = 1024 * 1024;
+    let currentFiles: File[] = [];
+
+    const updateFileList = () => {
+      fileList.innerHTML = "";
+      currentFiles.forEach((file, index) => {
+        const fileItem = document.createElement("div");
+        fileItem.className = "file-item";
+        fileItem.innerHTML = `
+          <div class="attach">
+            <span class="file-name">${file.name}</span>
+            <button type="button" class="remove-file" data-index="${index}">x</button>
+          </div>
+        `;
+        fileList.appendChild(fileItem);
+      });
+    };
+
+    const handleFiles = (files: FileList) => {
+      Array.from(files).forEach((file) => {
+        if (file.size <= MAX_FILE_SIZE) {
+          currentFiles.push(file);
+        } else {
+          const fileUploadGroup = fileInput.closest(
+            ".form-group"
+          ) as HTMLElement;
+          const errorMessage = fileUploadGroup.querySelector(
+            '.form-message[data-error="filesize"]'
+          ) as HTMLElement;
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 3000);
+        }
+      });
+      updateFileList();
+    };
+
+    fileSelectButton.addEventListener("click", () => {
+      fileInput.click();
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files) {
+        handleFiles(target.files);
+      }
+    });
+
+    fileDropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      fileDropZone.classList.add("drag-over");
+    });
+
+    fileDropZone.addEventListener("dragleave", () => {
+      fileDropZone.classList.remove("drag-over");
+    });
+
+    fileDropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      fileDropZone.classList.remove("drag-over");
+      if (e.dataTransfer?.files) {
+        handleFiles(e.dataTransfer.files);
+      }
+    });
+
+    fileList.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("remove-file")) {
+        const index = parseInt(target.getAttribute("data-index") || "0", 10);
+        currentFiles.splice(index, 1);
+        updateFileList();
+      }
+    });
+    /* end */
+
+    const validateForm = () => {
+      const requiredInputs = Array.from(inputs).filter((input) =>
+        input.hasAttribute("required")
+      ) as (HTMLInputElement | HTMLTextAreaElement)[];
+      const phoneInput = document.getElementById("phone") as HTMLInputElement;
+
+      const requiredFieldsValid = requiredInputs.every(
+        (input) => input.validity.valid
+      );
+      const phoneFieldValid =
+        phoneInput.value.trim() === "" || validatePhoneInput(phoneInput);
+
+      const isValid = requiredFieldsValid && phoneFieldValid;
+      submitBtn.disabled = !isValid;
+      return isValid;
+    };
+
+    const handleInput = debounce(
+      (input: HTMLInputElement | HTMLTextAreaElement) => {
+        validateInput(input);
+        validateForm();
+      },
+      500
+    );
+
+    inputs.forEach((input) => {
+      input.addEventListener("input", () =>
+        handleInput(input as HTMLInputElement | HTMLTextAreaElement)
+      );
+      input.addEventListener("blur", () => {
+        setTimeout(() => {
+          validateInput(input as HTMLInputElement | HTMLTextAreaElement);
+          validateForm();
+        }, 500);
+      });
+      input.addEventListener("focus", () => {
+        const formGroup = input.closest(".form-group") as HTMLElement;
+        setValidationState(formGroup, "active");
+      });
+    });
+
+    const smtpSend = async () => {
+      const form = document.getElementById("budgetForm") as HTMLFormElement;
+      const formData = new FormData();
+
+      inputs.forEach((element) => {
+        const input = element as HTMLInputElement | HTMLTextAreaElement;
+        if (input.id) {
+          formData.append(input.id, input.value);
+        }
+      });
+
+      currentFiles.forEach((file, index) => {
+        formData.append(`attachment${index}`, file);
+      });
+
+      try {
+        const response = await fetch("/api/smtp", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert("Formulário enviado com sucesso!");
+          form.reset();
+          currentFiles = [];
+          updateFileList();
+          formGroups.forEach((group) => {
+            group.removeAttribute("data-state");
+            group
+              .querySelectorAll(".form-message")
+              .forEach((msg) => ((msg as HTMLElement).style.display = "none"));
+          });
+          submitBtn.disabled = true;
+        } else {
+          throw new Error("Falha ao enviar formulário.");
+        }
+      } catch (error) {
+        console.error("Error sending form:", error);
+        alert("Falha ao enviar formulário, tente mais tarde.");
+      }
+    };
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      inputs.forEach((element) => {
+        validateInput(element as HTMLInputElement | HTMLTextAreaElement);
+      });
+      if (validateForm()) {
+        await smtpSend();
+      } else {
+        console.log("Form validation failed");
+      }
+    });
+  });
+</script>
