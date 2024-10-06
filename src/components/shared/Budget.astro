@@ -25,6 +25,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
             placeholder=" "
             required
             minlength="3"
+            aria-label="Nome ou nome da empresa"
           />
           <label for="name" class="form-label">Nome / Nome da empresa</label>
           <span class="form-message" data-error="required"
@@ -44,6 +45,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
             class="form-control"
             placeholder=" "
             required
+            aria-label="E-mail para contato"
           />
           <label for="email" class="form-label">Seu endereço de e-mail</label>
           <span class="form-message" data-error="required"
@@ -64,6 +66,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
             placeholder=" "
             minlength="10"
             maxlength="15"
+            aria-label="Campo opcional - Telefone para contato"
           />
           <label for="phone" class="form-label"
             >Telefone para contato (Opcional)</label
@@ -82,7 +85,8 @@ import UploadIcon from "../ui/UploadIcon.astro";
             rows="4"
             placeholder=" "
             required
-            minlength="10"></textarea>
+            minlength="10"
+            aria-label="Descreva como podemos lhe ajudar"></textarea>
           <label for="message" class="form-label"
             >Como podemos lhe ajudar?</label
           >
@@ -105,6 +109,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
               class="file-input"
               multiple
               accept=".pdf,.doc,.docx,.txt"
+              aria-label="Campo opcional - Deseja anexar algum arquivo ou documento?"
             />
             <div class="file-drop-content">
               <span class="mb-drag-text">Anexar arquivos (Opcional)</span>
@@ -388,8 +393,11 @@ import UploadIcon from "../ui/UploadIcon.astro";
     transition: background-color var(--transition-medium);
   }
 
-  .file-select-button:hover {
-    filter: brightness(1.2);
+  .file-select-button:hover,
+  .file-select-button:active,
+  .file-select-button:focus-visible {
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-primary-900);
   }
 
   .file-types {
