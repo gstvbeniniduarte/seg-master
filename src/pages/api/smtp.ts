@@ -70,7 +70,7 @@ export const POST: APIRoute = async ({ request }) => {
   try {
     await transporter.sendMail({
       from: '"SEG - Assessoria Veicular" <seg.smtp.business@gmail.com>',
-      to: "gstvbeniniduarte@gmail.com",
+      to: "segassessoriaemtransportes@gmail.com",
       subject: "Nova Requisição de Orçamento",
       text: `
         Nome: ${name || 'N/A'}
