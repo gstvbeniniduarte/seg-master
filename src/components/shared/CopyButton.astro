@@ -1,0 +1,184 @@
+<div class="copy-number-group">
+  <button class="copy-number-btn">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      class="copy-icon"
+    >
+      <path
+        fill="currentColor"
+        d="M15 20H5V7c0-.55-.45-1-1-1s-1 .45-1 1v13c0 1.1.9 2 2 2h10c.55 0 1-.45 1-1s-.45-1-1-1m5-4V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h9c1.1 0 2-.9 2-2m-2 0H9V4h9z"
+      ></path>
+    </svg>
+    <svg class="check-icon" viewBox="0 0 24 24">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span class="tooltip">Copiado!</span>
+  </button>
+  <span class="phone-number">67 98401 2222</span>
+</div>
+
+<style>
+  .copy-number-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: inherit;
+  }
+
+  .copy-number-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-circle);
+    cursor: pointer;
+    transition: all 200ms;
+  }
+
+  .copy-number-btn:hover,
+  .copy-number-btn:focus-visible {
+    color: var(--clr-neutral-100);
+    background-color: var(--clr-primary-100);
+  }
+
+  .tooltip {
+    position: absolute;
+    right: 100%;
+    margin-right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #1f2937;
+    color: var(--clr-neutral-100);
+    border-radius: 0.25rem;
+    opacity: 0;
+    transform: translateX(0.5rem);
+    transition: all 200ms;
+    pointer-events: none;
+  }
+
+  .tooltip.show {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* SVG styles */
+  .copy-icon,
+  .check-icon {
+    width: 1em;
+    height: 1em;
+    stroke: current;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .check-icon {
+    stroke: #0ebb34;
+    display: none;
+  }
+
+  .copied .copy-icon {
+    display: none;
+  }
+
+  .copied .check-icon {
+    display: block;
+  }
+</style>
+
+<script>
+  interface CopyButtonElements {
+    copyBtn: HTMLButtonElement;
+    phoneNumber: string;
+    tooltip: HTMLSpanElement;
+  }
+
+  class CopyButton {
+    private elements: CopyButtonElements;
+    private static readonly RESET_DELAY: number = 2000;
+
+    constructor() {
+      this.elements = {
+        copyBtn: document.createElement("button"),
+        phoneNumber: "",
+        tooltip: document.createElement("span"),
+      };
+
+      this.initializeElements();
+      this.setupEventListeners();
+    }
+
+    private initializeElements(): void {
+      const copyBtn = document.querySelector(
+        ".copy-number-btn"
+      ) as HTMLButtonElement | null;
+      const phoneNumberElement = document.querySelector(
+        ".phone-number"
+      ) as HTMLSpanElement | null;
+      const tooltip = copyBtn?.querySelector(
+        ".tooltip"
+      ) as HTMLSpanElement | null;
+
+      if (!copyBtn || !phoneNumberElement || !tooltip) {
+        throw new Error("Required elements not found");
+      }
+
+      this.elements = {
+        copyBtn,
+        phoneNumber: phoneNumberElement.textContent || "",
+        tooltip,
+      };
+    }
+
+    private setupEventListeners(): void {
+      this.elements.copyBtn.addEventListener(
+        "click",
+        this.handleCopyClick.bind(this)
+      );
+    }
+
+    private async handleCopyClick(): Promise<void> {
+      try {
+        await navigator.clipboard.writeText(this.elements.phoneNumber);
+        this.showCopiedState();
+      } catch (err) {
+        console.error(
+          "Failed to copy text: ",
+          err instanceof Error ? err.message : String(err)
+        );
+      }
+    }
+
+    private showCopiedState(): void {
+      this.elements.copyBtn.classList.add("copied");
+      this.elements.tooltip.classList.add("show");
+
+      setTimeout(() => {
+        this.resetCopiedState();
+      }, CopyButton.RESET_DELAY);
+    }
+
+    private resetCopiedState(): void {
+      this.elements.copyBtn.classList.remove("copied");
+      this.elements.tooltip.classList.remove("show");
+    }
+  }
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        new CopyButton();
+      } catch (err) {
+        console.error(
+          "Failed to initialize CopyButton:",
+          err instanceof Error ? err.message : String(err)
+        );
+      }
+    });
+  }
+</script>
