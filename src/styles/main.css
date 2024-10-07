@@ -424,6 +424,7 @@ footer {
 .file-name {
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 15ch;
   white-space: nowrap;
   font-size: var(--fs-extra-small);
 }
@@ -439,6 +440,7 @@ footer {
   text-align: center;
   font-weight: 600;
   font-family: var(--ff-default);
+  flex-shrink: 0;
 }
 
 @media ( min-width: 768px ) {
