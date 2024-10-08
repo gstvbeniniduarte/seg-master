@@ -609,6 +609,25 @@ import UploadIcon from "../ui/UploadIcon.astro";
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
     const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
+    let errorMessageTimeout: ReturnType<typeof setTimeout>;
+
+    const showErrorMessage = (message: string) => {
+      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
+      const errorMessage = fileUploadGroup.querySelector(
+        '.form-message[data-error="filesize"]'
+      ) as HTMLElement;
+
+      if (errorMessageTimeout) {
+        clearTimeout(errorMessageTimeout);
+      }
+
+      errorMessage.textContent = message;
+      errorMessage.style.display = "block";
+
+      errorMessageTimeout = setTimeout(() => {
+        errorMessage.style.display = "none";
+      }, 3000);
+    };
 
     const isFileTypeAllowed = (file: File): boolean => {
       const fileName = file.name.toLowerCase();
@@ -653,33 +672,18 @@ import UploadIcon from "../ui/UploadIcon.astro";
     });
 
     const handleFiles = (files: FileList) => {
-      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
-      const errorMessage = fileUploadGroup.querySelector(
-        '.form-message[data-error="filesize"]'
-      ) as HTMLElement;
-
       Array.from(files).forEach((file) => {
         if (!isFileTypeAllowed(file)) {
-          errorMessage.textContent =
-            "Somente permitidos arquivos PDF, DOC, DOCX ou TXT.";
-          errorMessage.style.display = "block";
-          setTimeout(() => {
-            errorMessage.style.display = "none";
-          }, 3000);
+          showErrorMessage(
+            "Tipo de arquivo não permitido. Use apenas PDF, DOC, DOCX ou TXT."
+          );
           return;
         }
 
         if (file.size <= MAX_FILE_SIZE) {
           currentFiles.push(file);
         } else {
-          setTimeout(() => {
-            errorMessage.textContent =
-              "Arquivo muito grande. Limite máximo de 2MB.";
-            errorMessage.style.display = "block";
-            setTimeout(() => {
-              errorMessage.style.display = "none";
-            }, 3000);
-          }, 1000);
+          showErrorMessage("Arquivo muito grande. Limite de 1MB por arquivo.");
         }
       });
       updateFileList();
