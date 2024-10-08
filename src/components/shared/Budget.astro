@@ -132,7 +132,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
             </div>
           </div>
           <div class="file-list"></div>
-          <span class="form-message" data-error="filesize"></span>
         </div>
 
         <div class="submit-wrapper" data-reveal="bottom">
@@ -595,6 +594,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
       }
     };
 
+    /* File upload */
     const fileInput = document.getElementById(
       "attachments"
     ) as HTMLInputElement;
@@ -606,35 +606,73 @@ import UploadIcon from "../ui/UploadIcon.astro";
       ".file-select-button"
     ) as HTMLButtonElement;
 
-    /* File upload */
-    const MAX_FILE_SIZE = 2 * 1024 * 1024;
-    const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
+    const MAX_FILE_SIZE: number = 2 * 1024 * 1024;
+    const ALLOWED_FILE_TYPES: string[] = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
 
     const isFileTypeAllowed = (file: File): boolean => {
-      const fileName = file.name.toLowerCase();
-      return ALLOWED_FILE_TYPES.some((type) => fileName.endsWith(type));
+      const fileName: string = file.name.toLowerCase();
+      return ALLOWED_FILE_TYPES.some((type: string) => fileName.endsWith(type));
     };
 
-    const updateFileList = () => {
+    const clearAllErrors = (): void => {
+      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
+      const errorContainer = fileUploadGroup.querySelector(
+        ".file-error-container"
+      );
+      if (errorContainer) {
+        errorContainer.innerHTML = "";
+      }
+    };
+
+    const showError = (message: string): void => {
+      clearAllErrors();
+
+      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
+
+      let errorContainer: HTMLElement | null = fileUploadGroup.querySelector(
+        ".file-error-container"
+      );
+
+      if (!errorContainer) {
+        errorContainer = document.createElement("div");
+        errorContainer.className = "file-error-container";
+        fileUploadGroup.insertBefore(errorContainer, fileList);
+      }
+
+      const errorElement: HTMLDivElement = document.createElement("div");
+      errorElement.className = "file-error-message";
+      errorElement.textContent = message;
+
+      const closeButton: HTMLButtonElement = document.createElement("button");
+      closeButton.textContent = "×";
+      closeButton.className = "error-close-button";
+      closeButton.onclick = clearAllErrors;
+      errorElement.appendChild(closeButton);
+
+      errorContainer.appendChild(errorElement);
+    };
+
+    const updateFileList = (): void => {
       fileList.innerHTML = "";
-      currentFiles.forEach((file, index) => {
-        const fileItem = document.createElement("div");
+      currentFiles.forEach((file: File, index: number) => {
+        const fileItem: HTMLDivElement = document.createElement("div");
         fileItem.className = "file-item";
 
-        const fileName = document.createElement("span");
+        const fileName: HTMLSpanElement = document.createElement("span");
         fileName.className = "file-name";
         fileName.textContent = file.name;
         fileName.setAttribute("title", file.name);
 
-        const removeButton = document.createElement("button");
+        const removeButton: HTMLButtonElement =
+          document.createElement("button");
         removeButton.type = "button";
         removeButton.className = "remove-file";
         removeButton.textContent = "×";
         removeButton.setAttribute("title", "Remover arquivo");
         removeButton.dataset.index = index.toString();
 
-        const attachDiv = document.createElement("div");
+        const attachDiv: HTMLDivElement = document.createElement("div");
         attachDiv.className = "attach";
         attachDiv.appendChild(fileName);
         attachDiv.appendChild(removeButton);
@@ -644,37 +682,29 @@ import UploadIcon from "../ui/UploadIcon.astro";
       });
     };
 
-    fileList.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      if (target.classList.contains("remove-file")) {
-        const index = parseInt(target.getAttribute("data-index") || "0", 10);
-        currentFiles.splice(index, 1);
-        updateFileList();
-      }
-    });
+    const handleFiles = (files: FileList): void => {
+      let hadError = false;
 
-    const handleFiles = (files: FileList) => {
-      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
-      const errorMessage = fileUploadGroup.querySelector(
-        '.form-message[data-error="filesize"]'
-      ) as HTMLElement;
-
-      Array.from(files).forEach((file) => {
+      Array.from(files).forEach((file: File) => {
         if (!isFileTypeAllowed(file)) {
-          errorMessage.textContent =
-            "Somente permitidos arquivos PDF, DOC, DOCX ou TXT.";
-          errorMessage.style.display = "block";
+          showError("Utilize somente arquivos: PDF, DOC, DOCX e TXT");
+          hadError = true;
           return;
         }
 
-        if (file.size <= MAX_FILE_SIZE) {
-          currentFiles.push(file);
-        } else {
-          errorMessage.textContent =
-            "Arquivo muito grande. Limite máximo de 2MB.";
-          errorMessage.style.display = "block";
+        if (file.size > MAX_FILE_SIZE) {
+          showError("Tamanho máximo permitido de arquivos: 2MB");
+          hadError = true;
+          return;
         }
+
+        currentFiles.push(file);
       });
+
+      if (!hadError) {
+        clearAllErrors();
+      }
+
       updateFileList();
     };
 
@@ -682,14 +712,14 @@ import UploadIcon from "../ui/UploadIcon.astro";
       fileInput.click();
     });
 
-    fileInput.addEventListener("change", (e) => {
+    fileInput.addEventListener("change", (e: Event) => {
       const target = e.target as HTMLInputElement;
       if (target.files) {
         handleFiles(target.files);
       }
     });
 
-    fileDropZone.addEventListener("dragover", (e) => {
+    fileDropZone.addEventListener("dragover", (e: DragEvent) => {
       e.preventDefault();
       fileDropZone.classList.add("drag-over");
     });
@@ -698,7 +728,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
       fileDropZone.classList.remove("drag-over");
     });
 
-    fileDropZone.addEventListener("drop", (e) => {
+    fileDropZone.addEventListener("drop", (e: DragEvent) => {
       e.preventDefault();
       fileDropZone.classList.remove("drag-over");
       if (e.dataTransfer?.files) {
@@ -706,10 +736,13 @@ import UploadIcon from "../ui/UploadIcon.astro";
       }
     });
 
-    fileList.addEventListener("click", (e) => {
+    fileList.addEventListener("click", (e: Event) => {
       const target = e.target as HTMLElement;
       if (target.classList.contains("remove-file")) {
-        const index = parseInt(target.getAttribute("data-index") || "0", 10);
+        const index: number = parseInt(
+          target.getAttribute("data-index") || "0",
+          10
+        );
         currentFiles.splice(index, 1);
         updateFileList();
       }

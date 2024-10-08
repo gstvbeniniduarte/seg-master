@@ -443,6 +443,36 @@ footer {
   flex-shrink: 0;
 }
 
+.file-error-container {
+  margin-top: 0.5rem;
+}
+
+.file-error-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: hsla(0, 72%, 51%, 0.1);
+  color: var(--clr-accent-500);
+  font-size: var(--fs-extra-small);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.error-close-button {
+  background: none;
+  border: none;
+  color: var(--clr-accent-500);
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0 0.5rem;
+}
+
+.error-close-button:hover {
+  opacity: 0.8;
+}
+
 @media ( min-width: 768px ) {
   .divider {
     display: none;
