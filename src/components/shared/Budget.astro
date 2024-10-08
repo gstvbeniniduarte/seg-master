@@ -679,7 +679,9 @@ import UploadIcon from "../ui/UploadIcon.astro";
           showErrorMessage(
             "Tipo de arquivo não permitido. Use apenas PDF, DOC, DOCX ou TXT."
           );
-          return;
+          setTimeout(() => {
+            return;
+          }, 3000);
         }
 
         if (file.size <= MAX_FILE_SIZE) {
