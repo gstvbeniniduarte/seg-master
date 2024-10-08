@@ -606,6 +606,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
       ".file-select-button"
     ) as HTMLButtonElement;
 
+    /* File upload */
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
     const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
@@ -663,9 +664,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
           errorMessage.textContent =
             "Somente permitidos arquivos PDF, DOC, DOCX ou TXT.";
           errorMessage.style.display = "block";
-          setTimeout(() => {
-            errorMessage.style.display = "none";
-          }, 3000);
           return;
         }
 
@@ -675,9 +673,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
           errorMessage.textContent =
             "Arquivo muito grande. Limite máximo de 2MB.";
           errorMessage.style.display = "block";
-          setTimeout(() => {
-            errorMessage.style.display = "none";
-          }, 3000);
         }
       });
       updateFileList();
