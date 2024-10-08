@@ -672,12 +672,14 @@ import UploadIcon from "../ui/UploadIcon.astro";
         if (file.size <= MAX_FILE_SIZE) {
           currentFiles.push(file);
         } else {
-          errorMessage.textContent =
-            "Arquivo muito grande. Limite máximo de 2MB.";
-          errorMessage.style.display = "block";
           setTimeout(() => {
-            errorMessage.style.display = "none";
-          }, 3000);
+            errorMessage.textContent =
+              "Arquivo muito grande. Limite máximo de 2MB.";
+            errorMessage.style.display = "block";
+            setTimeout(() => {
+              errorMessage.style.display = "none";
+            }, 3000);
+          }, 1000);
         }
       });
       updateFileList();
