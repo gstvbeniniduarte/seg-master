@@ -616,7 +616,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
     const MAX_FILE_SIZE = 2 * 1024 * 1024;
     const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
-    let errorMessageTimeout: ReturnType<typeof setTimeout> | null = null;
 
     const showErrorMessage = (message: string) => {
       const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
@@ -624,15 +623,10 @@ import UploadIcon from "../ui/UploadIcon.astro";
         '.form-message[data-error="filesize"]'
       ) as HTMLElement;
 
-      if (errorMessageTimeout) {
-        clearTimeout(errorMessageTimeout);
-        errorMessageTimeout = null;
-      }
-
       errorMessage.textContent = message;
       errorMessage.classList.add("visible");
 
-      errorMessageTimeout = setTimeout(() => {
+      setTimeout(() => {
         errorMessage.classList.remove("visible");
       }, 3000);
     };
