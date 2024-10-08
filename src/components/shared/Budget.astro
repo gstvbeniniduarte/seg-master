@@ -132,7 +132,9 @@ import UploadIcon from "../ui/UploadIcon.astro";
             </div>
           </div>
           <div class="file-list"></div>
-          <span class="form-message" data-error="filesize"></span>
+          <span class="form-message" data-error="filesize"
+            >Limite máximo de tamanho: 2MB.</span
+          >
         </div>
 
         <div class="submit-wrapper" data-reveal="bottom">
@@ -235,8 +237,13 @@ import UploadIcon from "../ui/UploadIcon.astro";
 
   .form-message {
     display: none;
+
     font-size: 0.75rem;
     margin-top: 0.25rem;
+  }
+
+  .form-message.visible {
+    display: block;
   }
 
   .form-message[data-error] {
@@ -610,7 +617,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
     const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
     let errorMessageTimeout: ReturnType<typeof setTimeout> | null = null;
-    let isErrorMessageVisible = false;
 
     const showErrorMessage = (message: string) => {
       const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
@@ -618,17 +624,16 @@ import UploadIcon from "../ui/UploadIcon.astro";
         '.form-message[data-error="filesize"]'
       ) as HTMLElement;
 
-      if (isErrorMessageVisible) {
-        return;
+      if (errorMessageTimeout) {
+        clearTimeout(errorMessageTimeout);
+        errorMessageTimeout = null;
       }
 
       errorMessage.textContent = message;
-      errorMessage.style.display = "block";
-      isErrorMessageVisible = true;
+      errorMessage.classList.add("visible");
 
       errorMessageTimeout = setTimeout(() => {
-        errorMessage.style.display = "none";
-        isErrorMessageVisible = false;
+        errorMessage.classList.remove("visible");
       }, 3000);
     };
 
