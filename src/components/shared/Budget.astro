@@ -101,7 +101,10 @@ import UploadIcon from "../ui/UploadIcon.astro";
       </div>
       <div class="lower">
         <div class="form-group file-upload" data-type="file" data-reveal="left">
-          <div class="file-drop-zone">
+          <div
+            class="file-drop-zone"
+            title="Arraste arquivos aqui ou clique para selecionar"
+          >
             <input
               type="file"
               id="attachments"
@@ -117,9 +120,13 @@ import UploadIcon from "../ui/UploadIcon.astro";
               <UploadIcon class="upload-icon" />
               <div class="attach-btn-wrapper">
                 <span class="drag-text-2">ou clique para</span>
-                <button type="button" class="file-select-button"
-                  >Selecionar arquivos</button
+                <button
+                  type="button"
+                  class="file-select-button"
+                  title="Clique para selecionar arquivos"
                 >
+                  Selecionar arquivos
+                </button>
               </div>
               <span class="file-types">Formatos: PDF, DOC, DOCX, TXT</span>
             </div>
@@ -391,6 +398,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
     border-radius: 4px;
     cursor: pointer;
     transition: background-color var(--transition-medium);
+    z-index: 1;
   }
 
   .file-select-button:hover,
@@ -605,15 +613,37 @@ import UploadIcon from "../ui/UploadIcon.astro";
       currentFiles.forEach((file, index) => {
         const fileItem = document.createElement("div");
         fileItem.className = "file-item";
-        fileItem.innerHTML = `
-          <div class="attach">
-            <span class="file-name">${file.name}</span>
-            <button type="button" class="remove-file" data-index="${index}">x</button>
-          </div>
-        `;
+
+        const fileName = document.createElement("span");
+        fileName.className = "file-name";
+        fileName.textContent = file.name;
+        fileName.setAttribute("title", file.name);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "remove-file";
+        removeButton.textContent = "×";
+        removeButton.setAttribute("title", "Remover arquivo");
+        removeButton.dataset.index = index.toString();
+
+        const attachDiv = document.createElement("div");
+        attachDiv.className = "attach";
+        attachDiv.appendChild(fileName);
+        attachDiv.appendChild(removeButton);
+
+        fileItem.appendChild(attachDiv);
         fileList.appendChild(fileItem);
       });
     };
+
+    fileList.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains("remove-file")) {
+        const index = parseInt(target.getAttribute("data-index") || "0", 10);
+        currentFiles.splice(index, 1);
+        updateFileList();
+      }
+    });
 
     const handleFiles = (files: FileList) => {
       Array.from(files).forEach((file) => {

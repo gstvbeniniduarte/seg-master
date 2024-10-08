@@ -424,7 +424,7 @@ footer {
 .file-name {
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 15ch;
+  max-width: 30ch;
   white-space: nowrap;
   font-size: var(--fs-extra-small);
 }
