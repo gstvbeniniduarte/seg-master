@@ -132,9 +132,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
             </div>
           </div>
           <div class="file-list"></div>
-          <span class="form-message" data-error="filesize"
-            >Limite máximo de tamanho: 2MB.</span
-          >
+          <span class="form-message" data-error="filesize"></span>
         </div>
 
         <div class="submit-wrapper" data-reveal="bottom">
@@ -237,13 +235,8 @@ import UploadIcon from "../ui/UploadIcon.astro";
 
   .form-message {
     display: none;
-
     font-size: 0.75rem;
     margin-top: 0.25rem;
-  }
-
-  .form-message.visible {
-    display: block;
   }
 
   .form-message[data-error] {
@@ -617,20 +610,6 @@ import UploadIcon from "../ui/UploadIcon.astro";
     const ALLOWED_FILE_TYPES = [".pdf", ".doc", ".docx", ".txt"];
     let currentFiles: File[] = [];
 
-    const showErrorMessage = (message: string) => {
-      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
-      const errorMessage = fileUploadGroup.querySelector(
-        '.form-message[data-error="filesize"]'
-      ) as HTMLElement;
-
-      errorMessage.textContent = message;
-      errorMessage.classList.add("visible");
-
-      setTimeout(() => {
-        errorMessage.classList.remove("visible");
-      }, 3000);
-    };
-
     const isFileTypeAllowed = (file: File): boolean => {
       const fileName = file.name.toLowerCase();
       return ALLOWED_FILE_TYPES.some((type) => fileName.endsWith(type));
@@ -674,20 +653,31 @@ import UploadIcon from "../ui/UploadIcon.astro";
     });
 
     const handleFiles = (files: FileList) => {
+      const fileUploadGroup = fileInput.closest(".form-group") as HTMLElement;
+      const errorMessage = fileUploadGroup.querySelector(
+        '.form-message[data-error="filesize"]'
+      ) as HTMLElement;
+
       Array.from(files).forEach((file) => {
         if (!isFileTypeAllowed(file)) {
-          showErrorMessage(
-            "Tipo de arquivo não permitido. Use apenas PDF, DOC, DOCX ou TXT."
-          );
+          errorMessage.textContent =
+            "Somente permitidos arquivos PDF, DOC, DOCX ou TXT.";
+          errorMessage.style.display = "block";
           setTimeout(() => {
-            return;
+            errorMessage.style.display = "none";
           }, 3000);
+          return;
         }
 
         if (file.size <= MAX_FILE_SIZE) {
           currentFiles.push(file);
         } else {
-          showErrorMessage("Arquivo muito grande. Limite de 1MB por arquivo.");
+          errorMessage.textContent =
+            "Arquivo muito grande. Limite máximo de 2MB.";
+          errorMessage.style.display = "block";
+          setTimeout(() => {
+            errorMessage.style.display = "none";
+          }, 3000);
         }
       });
       updateFileList();
