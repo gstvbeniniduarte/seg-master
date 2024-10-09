@@ -12,10 +12,12 @@ import UploadIcon from "../ui/UploadIcon.astro";
 
     <form id="budgetForm">
       <div class="upper">
-        <p class="section-sub-heading" data-reveal="right">
-          <span>Falta pouco!</span> Receba um orçamento feito na medida para sua
-          necessidade, é só preencher alguns campos abaixo
-        </p>
+        <div data-reveal="right">
+          <p class="section-sub-heading">
+            <span>Falta pouco!</span> Receba um orçamento feito na medida para sua
+            necessidade, é só preencher alguns campos abaixo
+          </p>
+        </div>
         <div class="form-group" data-type="text" data-reveal="left">
           <input
             type="text"
@@ -180,6 +182,7 @@ import UploadIcon from "../ui/UploadIcon.astro";
   .section-sub-heading {
     margin-bottom: 2.5rem;
     text-align: center;
+    opacity: 0.85;
   }
 
   .section-sub-heading span {

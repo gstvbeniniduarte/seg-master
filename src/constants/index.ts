@@ -18,25 +18,25 @@ export const servicesData = [
     name: "Proteção Veicular",
     description:
       "Serviço de cobertura (completo e mais barato) também regulamentado pela SUSEP de acordo com a PLP 101/2023.",
-    link: "/servicos/protecao-veicular",
+    link: "/servicos/protecao",
   },
   {
     id: 4,
     name: "Seguro Veicular",
     description:
       "Serviço de cobertura de Veículos em geral ou de carga para todo o território nacional.",
-    link: "/servicos/seguro-veicular",
+    link: "/servicos/seguro",
   },
   {
     id: 5,
-    name: "Rastreio Veicular",
+    name: "Rastreio / Monitoramento",
     description:
-      "Serviço de rastreio veicular integrado ao seguro e proteção.",
+      "Serviço de rastreio veicular integrado ao seguro e proteção, para veículos que apresentam alto risco de roubo/furto.",
     link: "/servicos/rastreio",
   },
   {
     id: 6,
-    name: "Financiamento para 0 km",
+    name: "Assessoria de Financiamentos",
     description:
       "Assessoria especializada com intuito de facilitação de aprovação de financiamento.",
     link: "/servicos/financiamento",
@@ -91,7 +91,7 @@ export const benefitsData = [
   {
     title: "Acessibilidade",
     description:
-      "Atendemos pessoas físicas e jurídicas em todo o território nacional.",
+      "Atendemos pessoas físicas e jurídicas em todo o território nacional, com horários de atendimento flexíveis.",
   },
   {
     title: "Praticidade",
@@ -102,6 +102,11 @@ export const benefitsData = [
     title: "Confiabilidade",
     description:
       "Atuamos com excelência há 22 anos na área, atendendo caminhoneiros autônomos, empresas frotistas, transportadoras e motoristas de todo Brasil.",
+  },
+  {
+    title: "Versatilidade",
+    description:
+      "Oferecemos uma ampla gama de soluções, atendendo desde o setor de transportes até veículos comuns.",
   },
 ];
 

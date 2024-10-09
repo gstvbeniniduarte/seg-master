@@ -9,10 +9,12 @@ import Accordion from "./AccordionHandler.astro";
       <span class="span-reference-1">Foque</span> na estrada<br />
       Deixe o restante com a gente!
     </h2>
-    <p data-reveal="right">
-      Confira abaixo a lista de serviços e benefícios que só a SEG tem para te
-      oferecer
-    </p>
+    <div data-reveal="right">
+      <p class="section-text">
+        Confira abaixo a lista de serviços e benefícios que só a SEG tem para te
+        oferecer
+      </p>
+    </div>
   </div>
   <div class="services-wrapper">
     {
@@ -22,11 +24,11 @@ import Accordion from "./AccordionHandler.astro";
     }
   </div>
   <div class="benefits-wrapper">
-    <h2 data-reveal="right">
+    <h3 data-reveal="right">
       Por quê escolher <br class="break-line" />os serviços da <span
         class="span-reference-2">SEG?</span
       >
-    </h2>
+    </h3>
     <ol class="benefits-list">
       {
         benefitsData.map((benefit, index) => (
@@ -56,23 +58,26 @@ import Accordion from "./AccordionHandler.astro";
   }
 
   .section {
-    gap: 3rem;
-    grid-template-columns: repeat(2, 1fr);
-
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
     padding-block: var(--pd-section);
   }
 
   .heading-wrapper {
     gap: 1.25rem;
-    grid-column: span 2;
     text-align: center;
   }
 
-  .break-line {
-    display: none;
+  .section-text {
+    opacity: 0.85;
   }
 
-  .span-reference-1 {
+  .break-line {
+    display: initial;
+  }
+
+  .span-reference-1,
+  .span-reference-2 {
     position: relative;
   }
 
@@ -87,13 +92,19 @@ import Accordion from "./AccordionHandler.astro";
   .span-reference-1::before {
     height: 1.75em;
     width: 5.2em;
-
     top: -7px;
     left: -33px;
-
     background-image: url("/images/circle-word-accent.svg");
     background-position: center;
     transform: rotateZ(4deg);
+  }
+
+  .span-reference-2::before {
+    background-image: url("/images/arrow-accent.svg");
+    right: -55px;
+    transform: translateY(10%);
+    height: 60px;
+    width: 46px;
   }
 
   .services-wrapper {
@@ -103,20 +114,12 @@ import Accordion from "./AccordionHandler.astro";
   .benefits-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
   }
 
-  .span-reference-2 {
-    position: relative;
-  }
-
-  .span-reference-2::before {
-    background-image: url("/images/arrow-accent.svg");
-
-    right: -55px;
-    transform: translateY(10%);
-    height: 60px;
-    width: 46px;
+  .benefits-wrapper h3 {
+    text-align: center;
+    padding-top: 1.5rem;
   }
 
   .benefits-list {
@@ -128,7 +131,10 @@ import Accordion from "./AccordionHandler.astro";
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
+  }
 
+  .benefit-content {
+    display: inline-flex;
     line-height: 1.6;
   }
 
@@ -140,11 +146,12 @@ import Accordion from "./AccordionHandler.astro";
   .benefit-number {
     flex-shrink: 0;
     text-align: right;
-    font-weight: var(--semi-bold);
+    font-weight: var(--fw-semi-bold);
+    line-height: 1.6;
   }
 
   .benefit-span {
-    font-weight: var(--semi-bold);
+    font-weight: var(--fw-semi-bold);
     margin-right: 3px;
   }
 
@@ -153,40 +160,35 @@ import Accordion from "./AccordionHandler.astro";
     display: inline;
   }
 
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
     .section {
-      gap: 2.5rem;
+      gap: 3rem;
     }
 
-    .benefits-wrapper {
-      gap: 2.5rem;
-    }
-
-    .benefits-wrapper h2 {
-      padding-top: 1.5rem;
+    .benefits-wrapper h3 {
+      padding-top: 0;
     }
 
     .break-line {
-      display: initial;
+      display: none;
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (min-width: 1024px) {
     .section {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
 
     .heading-wrapper {
-      grid-column: span 1;
+      grid-column: span 2;
     }
 
-    .benefits-wrapper > h2 {
-      text-align: center;
+    .benefits-wrapper h3 {
+      text-align: left;
     }
 
     .benefit-content {
-      display: inline-flex;
-      line-height: 1.6;
+      display: block;
     }
   }
 </style>

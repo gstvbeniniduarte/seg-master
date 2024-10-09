@@ -10,10 +10,12 @@ import { testimonialsData } from "../../constants";
         <span>Menos</span> papelada <br />
         <span>Mais</span> quilômetros rodados
       </h2>
-      <p class="section-sub-heading" data-reveal="right">
-        Confira as histórias de quem deixou a dor de cabeça para trás e seguiu
-        viagem com tranquilidade
-      </p>
+      <div data-reveal="right">
+        <p class="section-sub-heading">
+          Confira as histórias de quem deixou a dor de cabeça para trás e seguiu
+          viagem com tranquilidade
+        </p>
+      </div>
     </div>
 
     <div class="content-wrapper">
@@ -35,43 +37,6 @@ import { testimonialsData } from "../../constants";
     </div>
   </div>
 </section>
-
-<script>
-  const cardsWrapper = document.querySelector(
-    ".cards-wrapper"
-  ) as HTMLElement | null;
-  const bullets = document.querySelectorAll(".bullet");
-
-  if (cardsWrapper) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target instanceof HTMLElement) {
-            const index = Array.from(cardsWrapper.children).indexOf(
-              entry.target
-            );
-            updateActiveBullet(index);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    Array.from(cardsWrapper.children).forEach((child) => {
-      if (child instanceof HTMLElement) {
-        observer.observe(child);
-      }
-    });
-  }
-
-  function updateActiveBullet(index: number) {
-    bullets.forEach((bullet, i) => {
-      if (bullet instanceof HTMLElement) {
-        bullet.classList.toggle("active", i === index);
-      }
-    });
-  }
-</script>
 
 <style>
   section {
@@ -108,6 +73,10 @@ import { testimonialsData } from "../../constants";
     background-position: center;
     pointer-events: none;
     z-index: 1;
+  }
+
+  .section-sub-heading {
+    opacity: 0.85;
   }
 
   .content-wrapper {
@@ -167,3 +136,40 @@ import { testimonialsData } from "../../constants";
     }
   }
 </style>
+
+<script>
+  const cardsWrapper = document.querySelector(
+    ".cards-wrapper"
+  ) as HTMLElement | null;
+  const bullets = document.querySelectorAll(".bullet");
+
+  if (cardsWrapper) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target instanceof HTMLElement) {
+            const index = Array.from(cardsWrapper.children).indexOf(
+              entry.target
+            );
+            updateActiveBullet(index);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    Array.from(cardsWrapper.children).forEach((child) => {
+      if (child instanceof HTMLElement) {
+        observer.observe(child);
+      }
+    });
+  }
+
+  function updateActiveBullet(index: number) {
+    bullets.forEach((bullet, i) => {
+      if (bullet instanceof HTMLElement) {
+        bullet.classList.toggle("active", i === index);
+      }
+    });
+  }
+</script>

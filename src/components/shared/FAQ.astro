@@ -8,9 +8,11 @@ import Accordion from "./AccordionHandler.astro";
     <h2 class="section-heading" data-reveal="left">
       Ficou com alguma <span>dúvida</span>?
     </h2>
-    <p class="section-sub-heading" data-reveal="right">
-      Não se preocupe! Reunimos as perguntas que recebemos com mais frequência
-    </p>
+    <div data-reveal="right">
+      <p class="section-sub-heading">
+        Não se preocupe! Reunimos as perguntas que recebemos com mais frequência
+      </p>
+    </div>
   </div>
   <div class="faq-wrapper">
     {
@@ -50,6 +52,10 @@ import Accordion from "./AccordionHandler.astro";
 
   .section-heading span {
     color: var(--clr-accent-400);
+  }
+
+  .section-sub-heading {
+    opacity: 0.85;
   }
 
   .faq-wrapper {
