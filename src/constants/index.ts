@@ -27,6 +27,20 @@ export const servicesData = [
       "Serviço de cobertura de Veículos em geral ou de carga para todo o território nacional.",
     link: "/servicos/seguro-veicular",
   },
+  {
+    id: 5,
+    name: "Rastreio Veicular",
+    description:
+      "Serviço de rastreio veicular integrado ao seguro e proteção.",
+    link: "/servicos/rastreio",
+  },
+  {
+    id: 6,
+    name: "Financiamento para 0 km",
+    description:
+      "Assessoria especializada com intuito de facilitação de aprovação de financiamento.",
+    link: "/servicos/financiamento",
+  },
 ];
 
 export const faqData = [

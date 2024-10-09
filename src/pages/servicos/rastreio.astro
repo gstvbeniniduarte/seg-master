@@ -1,0 +1,104 @@
+---
+import PrimaryLayout from "../../layouts/PrimaryLayout.astro";
+import Header from "../../components/shared/Header.astro";
+import Footer from "../../components/shared/Footer.astro";
+---
+
+<PrimaryLayout>
+  <Header />
+  <section class="layout">
+    <div class="section-wrapper">
+      <div class="heading-wrapper">
+        <h1>Rastreamento Veicular</h1>
+        <p>
+          Oferecemos um serviço completo de <strong
+            >rastreamento veicular</strong
+          > integrado ao nosso pacote de seguro e proteção, ideal para veículos de
+          alto risco, como caminhões. Essa solução visa aumentar a segurança e o
+          monitoramento de veículos que são frequentemente alvo de roubos e furtos.
+        </p>
+      </div>
+
+      <div class="content-wrapper">
+        <h2>Principais vantagens:</h2>
+        <ul>
+          <li>
+            <strong class="isAccent">• Segurança reforçada:</strong> Nosso serviço
+            de rastreamento oferece uma camada extra de proteção ao cliente, especialmente
+            para veículos de alto valor ou risco. Ele está disponível como parte
+            do nosso pacote de seguro e proteção veicular, proporcionando mais tranquilidade
+            para quem precisa.
+          </li>
+
+          <li>
+            <strong class="isAccent">• Opção de solicitação:</strong> Se, ao realizar
+            a cotação, o rastreamento não estiver incluído no pacote sugerido, o
+            cliente tem a opção de solicitar esse serviço adicionalmente. Assim,
+            garantimos flexibilidade para atender necessidades específicas.
+          </li>
+        </ul>
+      </div>
+
+      <p>
+        Ao combinar rastreamento com seguro, entregamos uma solução <strong
+          >completa e confiável</strong
+        >, garantindo a proteção máxima para veículos valiosos e de alto risco.
+      </p>
+
+      <p>
+        <strong>Importante:</strong> A contratação deste serviço de forma isolada
+        (sem a aquisição de seguro/proteção) está sujeita à aprovação de nossa equipe.
+      </p>
+    </div>
+  </section>
+  <Footer />
+</PrimaryLayout>
+
+<style>
+  section {
+    margin: 10vh auto 3rem;
+  }
+
+  .section-wrapper {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  h1 {
+    color: var(--clr-accent-400);
+    margin-bottom: 0.75rem;
+  }
+
+  .heading-wrapper {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .content-wrapper {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  ul li {
+    padding-left: 1.25rem;
+  }
+
+  .isAccent {
+    color: var(--clr-accent-100);
+  }
+
+  :not(h1, h2) {
+    line-height: 1.6;
+  }
+
+  @media (min-width: 1024px) {
+    section {
+      margin-top: 20vh;
+    }
+  }
+</style>
