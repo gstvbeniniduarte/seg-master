@@ -1,0 +1,101 @@
+---
+import PrimaryLayout from "../layouts/PrimaryLayout.astro";
+import Header from "../components/shared/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+---
+
+<PrimaryLayout>
+  <Header />
+  <section class="layout">
+    <div class="section-wrapper">
+      <div class="heading-wrapper">
+        <h1>Linha de Crédito para Caminhões e Veículos 0 km</h1>
+        <p>
+          Nossa empresa oferece uma <strong
+            >assessoria completa para financiamento de caminhões e veículos em
+            geral</strong
+          >, atuando como intermediária entre o cliente e a instituição
+          bancária.
+        </p>
+
+        <p>
+          Com mais de 20 anos de experiência, <strong
+            >facilitamos todo o processo de aprovação</strong
+          > ao identificar as melhores opções e caminhos viáveis para garantir que
+          o crédito seja liberado com sucesso.
+        </p>
+      </div>
+
+      <div class="content-wrapper">
+        <h2>Principais diferenciais:</h2>
+        <ul>
+          <li>
+            • <strong>Intermediação especializada:</strong> Poucos bancos oferecem
+            crédito para o financiamento de veículos pesados, como caminhões, que
+            podem facilmente ultrapassar o valor de R$ 1 milhão. Nossa equipe se
+            encarrega de toda a <strong
+              >montagem e apresentação do projeto financeiro</strong
+            > para a aprovação.
+          </li>
+
+          <li>
+            • <strong>Análise de viabilidade:</strong> A maioria das negativas de
+            crédito decorre de um planejamento financeiro mal estruturado. Nós <strong
+              >analisamos cuidadosamente</strong
+            > as condições e as barreiras potenciais, garantindo um projeto bem fundamentado.
+          </li>
+
+          <li>
+            • <strong>Experiência e expertise:</strong> Sabemos, com nossa experiência,
+            identificar se um cliente tem chances reais de aprovação. Não oferecemos
+            apenas o serviço de assessoria em aprovação de crédito, mas <strong
+              >vendemos uma solução completa</strong
+            >, aumentando consideravelmente sua probabilidade de sucesso.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</PrimaryLayout>
+
+<style>
+  section {
+    margin: 10vh auto 3rem;
+  }
+
+  .section-wrapper {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  h1 {
+    color: var(--clr-accent-400);
+    margin-bottom: 0.75rem;
+  }
+
+  .heading-wrapper {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .content-wrapper {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  :not(h1, h2) {
+    line-height: 1.6;
+  }
+
+  @media (min-width: 1024px) {
+    section {
+      margin-top: 20vh;
+    }
+  }
+</style>
