@@ -1,17 +1,18 @@
 ---
 import { Image } from "astro:assets";
-import Banner from "../../images/gato-bolado.avif";
+import Banner from "../../images/about-banner.webp";
 ---
 
 <section id="sobre" class="full-width">
   <div class="section-wrapper content-max-width">
     <Image
       src={Banner}
-      width={327}
-      height={327}
-      widths={[327]}
-      alt="Gato bolado!"
+      width={800}
+      height={800}
+      widths={[500, 560, 788, 980, 1110]}
+      alt="Banner"
       format={"webp"}
+      class="about-banner"
     />
     <div class="content-wrapper">
       <div class="section-head">
@@ -46,12 +47,14 @@ import Banner from "../../images/gato-bolado.avif";
     background-color: var(--clr-neutral-100);
     border-radius: 1rem;
 
-    padding-bottom: var(--pd-section);
+    padding-block: var(--pd-section);
   }
 
   .section-wrapper {
     display: grid;
     grid-template-columns: 1fr;
+    place-items: center;
+    gap: 2.5rem;
   }
 
   .content-wrapper {
@@ -83,11 +86,21 @@ import Banner from "../../images/gato-bolado.avif";
     text-wrap: pretty;
   }
 
+  .about-banner {
+    border-radius: 4px;
+  }
+
   .section-text {
     display: grid;
     gap: 1rem;
 
     opacity: 0.85;
+  }
+
+  @media (min-width: 500px) and (max-width: 768px) {
+    .about-banner {
+      height: 35dvh;
+    }
   }
 
   @media (min-width: 768px) {
