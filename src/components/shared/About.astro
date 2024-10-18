@@ -98,13 +98,18 @@ import Banner from "../../images/about-banner.webp";
     opacity: 0.85;
   }
 
-  @media (min-width: 500px) and (max-width: 768px) {
+  @media (min-width: 500px) and (max-width: 1024px) {
     .about-banner {
-      height: 35dvh;
+      height: 35vh;
+      width: min(100%, 66ch);
+    }
+
+    .section-paragraph {
+      max-width: 65ch;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     .section-wrapper {
       grid-template-columns: repeat(2, 1fr);
     }

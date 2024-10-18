@@ -64,6 +64,8 @@
   /* LAYOUT SETTINGS */
   --max-width: 1110px;
   --sm-padding: 1.5rem;
+  --md-padding: 3rem;
+  --lg-padding: 5rem;
 }
 
 /* RESET */
@@ -238,6 +240,32 @@ video {
 .content-max-width {
   margin-inline: auto;
   max-width: min(var(--max-width), 100% - (var(--sm-padding) * 2));
+}
+
+@media (min-width: 540px) and (max-width: 767px) {
+  .layout {
+    grid-template-columns:
+      minmax(var(--md-padding), 1fr)
+      min(var(--max-width), 100% - (var(--md-padding) * 2))
+      minmax(var(--md-padding), 1fr);
+  }
+
+  .content-max-width {
+    max-width: min(var(--max-width), 100% - (var(--md-padding) * 2));
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1254px) {
+  .layout {
+    grid-template-columns:
+      minmax(var(--lg-padding), 1fr)
+      min(var(--max-width), 100% - (var(--lg-padding) * 2))
+      minmax(var(--lg-padding), 1fr);
+  }
+
+  .content-max-width {
+    max-width: min(var(--max-width), 100% - (var(--lg-padding) * 2));
+  }
 }
 
 /* UTILITY CLASSES */

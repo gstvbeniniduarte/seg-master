@@ -171,8 +171,6 @@ import WhatsappIcon from "../ui/WhatsappIcon.astro";
   .cta-btn-wrapper {
     display: flex;
     flex-direction: column;
-
-    min-width: 100%;
   }
 
   .cta-btn,
@@ -211,6 +209,9 @@ import WhatsappIcon from "../ui/WhatsappIcon.astro";
     .content-wrapper {
       order: 1;
       padding-block: 2rem 0;
+    }
+
+    .section-text {
       max-width: 50ch;
     }
 
@@ -234,6 +235,10 @@ import WhatsappIcon from "../ui/WhatsappIcon.astro";
   }
 
   @media (min-width: 768px) {
+    .content-wrapper {
+      justify-content: center;
+    }
+
     .cta-btn-wrapper {
       flex-direction: row;
     }
@@ -247,14 +252,19 @@ import WhatsappIcon from "../ui/WhatsappIcon.astro";
 
   @media (min-width: 1024px) {
     .section-wrapper {
-      grid-template-columns: 55% 1fr;
-
       padding-block: var(--pd-section);
+    }
+  }
+
+  @media (min-width: 1120px) {
+    .section-wrapper {
+      grid-template-columns: 55% 1fr;
     }
 
     .content-wrapper {
       order: 0;
       padding-block: 0;
+      justify-content: flex-start;
     }
 
     .hero-banner-wrapper {
