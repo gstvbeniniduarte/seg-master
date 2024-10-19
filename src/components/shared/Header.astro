@@ -190,7 +190,7 @@ import Logo from "../ui/Logo.astro";
   .nav {
     position: absolute;
     visibility: hidden;
-    padding-inline: 1.5rem;
+    padding-inline: var(--sm-padding);
     transform: translateX(150%);
   }
 
@@ -208,6 +208,26 @@ import Logo from "../ui/Logo.astro";
     visibility: visible;
     transform: translateX(var(--sm-padding));
     transition: transform var(--transition-medium);
+  }
+
+  @media (min-width: 540px) and (max-width: 767px) {
+    .nav {
+      padding-right: var(--md-padding);
+    }
+
+    [aria-expanded="true"] + .nav {
+      transform: translateX(var(--md-padding));
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1254px) {
+    .nav {
+      padding-right: var(--lg-padding);
+    }
+
+    [aria-expanded="true"] + .nav {
+      transform: translateX(var(--lg-padding));
+    }
   }
 
   [aria-expanded="true"] + .nav .main-nav-list {
