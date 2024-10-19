@@ -1,0 +1,43 @@
+---
+import PrimaryLayout from "../layouts/PrimaryLayout.astro";
+import Header from "../components/shared/Header.astro";
+import { Image } from "astro:assets";
+import Banner from "../images/aviso.webp";
+---
+
+<PrimaryLayout>
+  <Header />
+  <main class="not-found">
+    <section>
+      <Image
+        src={Banner}
+        width={300}
+        height={300}
+        alt="Aviso"
+        widths={[480, 540, 768]}
+        format={"webp"}
+        loading={"eager"}
+      />
+      <h1>Página em Desenvolvimento</h1>
+    </section>
+  </main>
+</PrimaryLayout>
+
+<style>
+  .not-found {
+    display: grid;
+    place-items: center;
+    min-height: 100dvh;
+  }
+
+  section {
+    display: grid;
+    gap: 1rem;
+  }
+
+  h1 {
+    color: var(--clr-accent-400);
+    text-transform: uppercase;
+    font-size: 20px;
+  }
+</style>
