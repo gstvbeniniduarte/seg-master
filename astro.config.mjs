@@ -5,5 +5,9 @@ import playformCompress from '@playform/compress';
 export default defineConfig({
   output: 'hybrid',
   adapter: vercel(),
-  integrations: [playformCompress()]
+  integrations: [playformCompress(), partytown({
+    config: {
+      forward: ["dataLayer.push"],
+    },
+  })]
 });
