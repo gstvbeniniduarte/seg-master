@@ -6,9 +6,9 @@ import partytown from '@astrojs/partytown';
 export default defineConfig({
   output: 'hybrid',
   adapter: vercel(),
-  integrations: [playformCompress(), partytown({
+  integrations: [partytown({
     config: {
       forward: ["dataLayer.push"],
     },
-  })]
+  }), playformCompress()]
 });

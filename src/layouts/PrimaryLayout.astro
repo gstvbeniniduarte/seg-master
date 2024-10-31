@@ -12,12 +12,19 @@ const {
     <script
       type="text/partytown"
       async
-      src="https://www.googletagmanager.com/gtag/js?id=G-2PK46XYXHP"></script>
-    <script type="text/partytown">
+      src="https://www.googletagmanager.com/gtag/js?id=G-2PK46XYXHP"
+      is:inline></script>
+    <script type="text/partytown" is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
+
+      gtag("event", "conversion", {
+        send_to: "AW-16717148219/l8PwCImKhNcZELvgraM-",
+        transaction_id: "",
+      });
+
       gtag("js", new Date());
 
       gtag("config", "G-2PK46XYXHP");
