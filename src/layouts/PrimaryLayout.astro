@@ -14,20 +14,21 @@ const {
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-2PK46XYXHP"
       is:inline></script>
+
     <script type="text/partytown" is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
 
+      gtag("js", new Date());
+
+      gtag("config", "G-2PK46XYXHP");
+
       gtag("event", "conversion", {
         send_to: "AW-16717148219/l8PwCImKhNcZELvgraM-",
         transaction_id: "",
       });
-
-      gtag("js", new Date());
-
-      gtag("config", "G-2PK46XYXHP");
     </script>
     <meta charset="utf-8" />
     <meta name="description" content={description} />
